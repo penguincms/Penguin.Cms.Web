@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Penguin.Cms.Web</name>
+        <name>Penguin.Cms.Web.Local</name>
     </assembly>
     <members>
         <member name="M:Penguin.Cms.Web.Extensions.FileServiceExtensions.ContentExists(Penguin.Files.Services.FileService,System.String)">
