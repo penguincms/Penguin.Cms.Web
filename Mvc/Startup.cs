@@ -12,12 +12,14 @@ using Penguin.Cms.Web.Mvc.ModelBinders;
 using Penguin.Cms.Web.Mvc.Routing;
 using Penguin.Cms.Web.Providers;
 using Penguin.Configuration.Abstractions.Interfaces;
+using Penguin.Configuration.Abstractions.Exceptions;
 using Penguin.Configuration.Providers;
 using Penguin.Debugging;
 using Penguin.Messaging.Application.Extensions;
 using Penguin.Messaging.Core;
 using Penguin.Persistence.Abstractions.Interfaces;
 using Penguin.Reflection;
+using Penguin.Persistence.Abstractions.Constants;
 using Penguin.Testing.RuntimeValidation;
 using Penguin.Web.Abstractions.Interfaces;
 using Penguin.Web.DependencyInjection;
@@ -28,6 +30,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using DependencyEngine = Penguin.DependencyInjection.Engine;
+using Penguin.Extensions.Exceptions;
+using Penguin.Persistence.Abstractions.Exceptions;
 
 namespace Penguin.Cms.Web.Mvc
 {
@@ -39,6 +43,8 @@ namespace Penguin.Cms.Web.Mvc
         }
 
         public IConfiguration Configuration { get; }
+
+        public static bool PersistenceConfigured { get; set; }
 
         private static readonly object BootLock = new object();
 
@@ -112,21 +118,28 @@ namespace Penguin.Cms.Web.Mvc
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMiddleware<ServiceScope>();
-
-            foreach (Type t in TypeFactory.GetAllImplementations(typeof(IPenguinMiddleware)))
+            app.UseWhen(context => PersistenceConfigured, appBuilder =>
             {
+                appBuilder.UseMiddleware<ServiceScope>();
 
-                MethodInfo m = typeof(UseMiddlewareExtensions).GetMethods()
-                              .First(mi =>
-                                mi.Name == nameof(UseMiddlewareExtensions.UseMiddleware) &&
-                                !mi.ContainsGenericParameters
-                              );
+                foreach (Type t in TypeFactory.GetAllImplementations(typeof(IPenguinMiddleware)))
+                {
+                    MethodInfo m = typeof(UseMiddlewareExtensions).GetMethods()
+                                  .First(mi =>
+                                    mi.Name == nameof(UseMiddlewareExtensions.UseMiddleware) &&
+                                    !mi.ContainsGenericParameters
+                                  );
 
-                m.Invoke(null, new object[] { app, t, new object[] { } });
-            }
+                    m.Invoke(null, new object[] { appBuilder, t, new object[] { } });
+                }
 
-            app.UseMiddleware<ExceptionHandling>();
+                appBuilder.UseMiddleware<ExceptionHandling>();
+            });
+
+            app.UseWhen(context => !PersistenceConfigured, appBuilder =>
+            {
+                appBuilder.UseMiddleware<ConfigurePersistenceMiddleware>();
+            });
 
             IProvideConfigurations provideConnectionStrings = new ConfigurationProviderList(
                     new JsonProvider(Configuration)
@@ -136,8 +149,6 @@ namespace Penguin.Cms.Web.Mvc
             {
                 return provideConnectionStrings;
             });
-
-            UpdateDatabaseSchema(DependencyEngine.GetService<IPersistenceContextMigrator>());
 
             foreach (Type t in TypeFactory.GetAllImplementations(typeof(IRouteConfig)))
             {
@@ -166,33 +177,35 @@ namespace Penguin.Cms.Web.Mvc
 #if DEBUG
             RuntimeValidator.ExecuteTests();
 #endif
-            
+
             MessageBus.SubscribeAll();
 
-            using (PerRequestServiceScope ServiceScope = PerRequestScopeFactory.CreateDummy())
+            try
             {
-                new MessageBus(ServiceScope.ServiceProvider).Startup();
-            }
+                IPersistenceContextMigrator migrator = DependencyEngine.GetService<IPersistenceContextMigrator>();
 
-            StaticLogger.Log($"Application initialization completed.", StaticLogger.LoggingLevel.Final);
-        }
-
-        public static void UpdateDatabaseSchema(IPersistenceContextMigrator migrator)
-        {
-
-            if (migrator is null)
-            {
-                try
+                if (migrator is null)
                 {
                     throw new ArgumentNullException(nameof(migrator), "No persistence context migrator was found registered with the dependency injector, which may mean that no persistence context implementation is included in the solution");
                 }
-                catch (Exception)
+
+                PersistenceConfigured = migrator.IsConfigured;
+
+                if (PersistenceConfigured)
                 {
-                    return;
+                    migrator.Migrate();
+
+                    using PerRequestServiceScope ServiceScope = PerRequestScopeFactory.CreateDummy();
+
+                    new MessageBus(ServiceScope.ServiceProvider).Startup();
                 }
             }
+            catch (Exception ex)
+            {
+                PersistenceConfigured = false;
+            }
 
-            migrator.Migrate();
+            StaticLogger.Log($"Application initialization completed.", StaticLogger.LoggingLevel.Final);
         }
     }
 }
