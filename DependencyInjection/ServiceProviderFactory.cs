@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.DependencyInjection;
+using Penguin.Cms.Web.Extensions;
 using Penguin.Cms.Web.Mvc;
 using Penguin.DependencyInjection.ServiceProviders;
 using Penguin.DependencyInjection.ServiceScopes;
@@ -24,7 +25,7 @@ namespace Penguin.Cms.Web.DependencyInjection
             DependencyEngine.Register<IServiceScopeFactory, PerRequestScopeFactory>();
             DependencyEngine.Register<IServiceProvider, DependencyEngine>(typeof(ScopedServiceProvider));
             DependencyEngine.Register<HttpContext, DefaultHttpContext>(typeof(ScopedServiceProvider));
-            DependencyEngine.Register((IServiceProvider serviceProvider) => serviceProvider.GetService<HttpContext>()?.Session, typeof(ScopedServiceProvider));
+            DependencyEngine.Register((IServiceProvider serviceProvider) => serviceProvider.GetService<HttpContext>().TryGetSession(), typeof(ScopedServiceProvider));
             DependencyEngine.Register<IControllerFactory, ControllerFactory>(typeof(SingletonServiceProvider));
 
             foreach (ServiceDescriptor descriptor in services)
