@@ -182,23 +182,7 @@ namespace Penguin.Cms.Web.Mvc
 
             try
             {
-                IPersistenceContextMigrator migrator = DependencyEngine.GetService<IPersistenceContextMigrator>();
-
-                if (migrator is null)
-                {
-                    throw new ArgumentNullException(nameof(migrator), "No persistence context migrator was found registered with the dependency injector, which may mean that no persistence context implementation is included in the solution");
-                }
-
-                PersistenceConfigured = migrator.IsConfigured;
-
-                if (PersistenceConfigured)
-                {
-                    migrator.Migrate();
-
-                    using PerRequestServiceScope ServiceScope = PerRequestScopeFactory.CreateDummy();
-
-                    new MessageBus(ServiceScope.ServiceProvider).Startup();
-                }
+                ConfigureDatabase();
             }
             catch (Exception ex)
             {
@@ -206,6 +190,27 @@ namespace Penguin.Cms.Web.Mvc
             }
 
             StaticLogger.Log($"Application initialization completed.", StaticLogger.LoggingLevel.Final);
+        }
+    
+        public static void ConfigureDatabase()
+        {
+            IPersistenceContextMigrator migrator = DependencyEngine.GetService<IPersistenceContextMigrator>();
+
+            if (migrator is null)
+            {
+                throw new ArgumentNullException(nameof(migrator), "No persistence context migrator was found registered with the dependency injector, which may mean that no persistence context implementation is included in the solution");
+            }
+
+            PersistenceConfigured = migrator.IsConfigured;
+
+            if (PersistenceConfigured)
+            {
+                migrator.Migrate();
+
+                using PerRequestServiceScope ServiceScope = PerRequestScopeFactory.CreateDummy();
+
+                new MessageBus(ServiceScope.ServiceProvider).Startup();
+            }
         }
     }
 }
