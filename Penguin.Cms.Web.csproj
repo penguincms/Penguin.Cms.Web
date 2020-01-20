@@ -30,9 +30,9 @@
     <PackageReference Include="Penguin.Testing" Version="1.1.9-T9MJL4F" />
     <PackageReference Include="Penguin.Web.Errors" Version="1.0.1-T9MJL4F" />
     <PackageReference Include="Penguin.Web.DependencyInjection" Version="1.0.6-T9MJL4F" />
-    <PackageReference Include="Penguin.Files" Version="1.0.1-T9MJL4F" />
     <PackageReference Include="Penguin.Cms.Entities" Version="3.0.4-T9MNBFG" />
     <PackageReference Include="Penguin.Reflection.Serialization.Extensions" Version="3.0.5-T9O8EAS" />
     <PackageReference Include="Penguin.Persistence.Database" Version="2.0.9-T9P1VVS" />
+    <PackageReference Include="Penguin.Files" Version="1.0.1-T9Q96US" />
   </ItemGroup>
 </Project>
