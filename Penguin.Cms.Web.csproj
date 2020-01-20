@@ -10,29 +10,29 @@
     <RootNamespace>Penguin.Cms.Web</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0" />
-    <PackageReference Include="Penguin.Configuration" Version="2.0.2-T9MJL4F" />
-    <PackageReference Include="Penguin.Extensions.Collections" Version="2.0.4-T9MJL4F" />
-    <PackageReference Include="Penguin.Messaging.Application" Version="2.1.1-T9MJL4F" />
-    <PackageReference Include="Penguin.Templating.Abstractions" Version="1.0.1-T9MJL4F" />
-    <PackageReference Include="Penguin.Web.Abstractions" Version="1.0.1-T9MJL4F" />
-    <PackageReference Include="Penguin.Web.Mvc" Version="2.0.5-T9MJL4F" />
-    <PackageReference Include="Penguin.Cms.Abstractions" Version="1.0.1-T9MJL4F" />
-    <PackageReference Include="Penguin.Persistence.Repositories" Version="3.0.3-T9MJL4F" />
-    <PackageReference Include="Penguin.Testing" Version="1.1.9-T9MJL4F" />
-    <PackageReference Include="Penguin.Web.Errors" Version="1.0.1-T9MJL4F" />
-    <PackageReference Include="Penguin.Web.DependencyInjection" Version="1.0.6-T9MJL4F" />
-    <PackageReference Include="Penguin.Cms.Entities" Version="3.0.4-T9MNBFG" />
-    <PackageReference Include="Penguin.Reflection.Serialization.Extensions" Version="3.0.5-T9O8EAS" />
-    <PackageReference Include="Penguin.Persistence.Database" Version="2.0.9-T9P1VVS" />
-    <PackageReference Include="Penguin.Files" Version="1.0.1-T9Q96US" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
+    <PackageReference Include="Penguin.Configuration" Version="2.0.2-T9QC72V" />
+    <PackageReference Include="Penguin.Extensions.Collections" Version="2.0.4-T9QC72V" />
+    <PackageReference Include="Penguin.Messaging.Application" Version="2.1.1-T9QC72V" />
+    <PackageReference Include="Penguin.Templating.Abstractions" Version="1.0.1-T9QC72V" />
+    <PackageReference Include="Penguin.Web.Abstractions" Version="1.0.1-T9QC72V" />
+    <PackageReference Include="Penguin.Web.Mvc" Version="2.0.5-T9QC72V" />
+    <PackageReference Include="Penguin.Cms.Abstractions" Version="1.0.1-T9QC72V" />
+    <PackageReference Include="Penguin.Persistence.Repositories" Version="3.0.3-T9QC72V" />
+    <PackageReference Include="Penguin.Testing" Version="1.1.9-T9QC72V" />
+    <PackageReference Include="Penguin.Web.Errors" Version="1.0.1-T9QC72V" />
+    <PackageReference Include="Penguin.Web.DependencyInjection" Version="1.0.6-T9QC72V" />
+    <PackageReference Include="Penguin.Cms.Entities" Version="3.0.4-T9QC72V" />
+    <PackageReference Include="Penguin.Reflection.Serialization.Extensions" Version="3.0.5-T9QC72V" />
+    <PackageReference Include="Penguin.Persistence.Database" Version="2.0.9-T9QC72V" />
+    <PackageReference Include="Penguin.Files" Version="1.0.1-T9QC72V" />
   </ItemGroup>
 </Project>
