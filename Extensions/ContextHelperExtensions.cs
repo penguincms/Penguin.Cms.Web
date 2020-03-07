@@ -16,9 +16,8 @@ namespace Penguin.Cms.Web.Extensions
     [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
     public class ContextHelper
     {
-        protected IServiceProvider ServiceProvider { get; set; }
-
         private const string KEY_NOT_FOUND_MESSAGE = "Key not found. Logic might need to be added to find a key based on attribute";
+        protected IServiceProvider ServiceProvider { get; set; }
 
         public ContextHelper(IServiceProvider serviceProvider)
         {

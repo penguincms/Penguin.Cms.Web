@@ -47,7 +47,6 @@ namespace Penguin.Cms.Web.Mvc
 
         private static readonly object BootLock = new object();
 
-
         // This method gets called by the runtime. Use this method to add services to the container.
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
         public void ConfigureServices(IServiceCollection services)
@@ -87,7 +86,7 @@ namespace Penguin.Cms.Web.Mvc
                 services.AddSingleton<IFileProvider>((ServiceProvider) => new CompositeFileProvider(RCLStaticFiles.FileProvider, new RCLViews()));
 
                 TypeFactory.GetTypeByFullName("Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions")
-                           .GetMethods().Single(m => m.Name == "AddControllersWithViews" && m.GetParameters().Count() == 1)
+                           .GetMethods().Single(m => m.Name == "AddControllersWithViews" && m.GetParameters().Length == 1)
                            .Invoke(null, new object[] { services });
 
                 IMvcBuilder builder = services.AddMvc(options =>
@@ -103,7 +102,7 @@ namespace Penguin.Cms.Web.Mvc
                     throw new NullReferenceException("The package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation is not installed or is not being copied to the output directory");
                 }
 
-                runtimeCompilation.GetMethods().Single(m => m.Name == "AddRazorRuntimeCompilation" && m.GetParameters().Count() == 1)
+                runtimeCompilation.GetMethods().Single(m => m.Name == "AddRazorRuntimeCompilation" && m.GetParameters().Length == 1)
                    .Invoke(null, new object[] { builder });
 
                 services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -119,7 +118,7 @@ namespace Penguin.Cms.Web.Mvc
         {
             try
             {
-                foreach (JsonConfigurationProvider jscp in ((IConfigurationRoot)Configuration).Providers.OfType<JsonConfigurationProvider>())
+                foreach (JsonConfigurationProvider jscp in ((IConfigurationRoot)this.Configuration).Providers.OfType<JsonConfigurationProvider>())
                 {
                     StaticLogger.Log($"Configuration Loaded: {jscp.Source.Path}", StaticLogger.LoggingLevel.Call);
                 }
@@ -141,7 +140,7 @@ namespace Penguin.Cms.Web.Mvc
                                         !mi.ContainsGenericParameters
                                       );
 
-                        m.Invoke(null, new object[] { appBuilder, t, new object[] { } });
+                        m.Invoke(null, new object[] { appBuilder, t, Array.Empty<object>() });
                     }
 
                     appBuilder.UseMiddleware<ExceptionHandling>();
@@ -153,7 +152,7 @@ namespace Penguin.Cms.Web.Mvc
                 });
 
                 IProvideConfigurations provideConnectionStrings = new ConfigurationProviderList(
-                        new JsonProvider(Configuration)
+                        new JsonProvider(this.Configuration)
                 );
 
                 DependencyEngine.Register((serviceProvider) =>

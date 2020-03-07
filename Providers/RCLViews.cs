@@ -18,9 +18,15 @@ namespace Penguin.Cms.Web.Providers
         public bool Exists { get; set; }
         public List<RazorFileInfo> RazorFileInfo { get; set; } = new List<RazorFileInfo>();
 
-        public IEnumerator<IFileInfo> GetEnumerator() => RazorFileInfo.GetEnumerator();
+        public IEnumerator<IFileInfo> GetEnumerator()
+        {
+            return this.RazorFileInfo.GetEnumerator();
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => RazorFileInfo.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.RazorFileInfo.GetEnumerator();
+        }
     }
 
     public class RazorFileInfo : IFileInfo
@@ -34,7 +40,10 @@ namespace Penguin.Cms.Web.Providers
         public string Name { get; set; }
         public string PhysicalPath { get; set; }
 
-        public Stream CreateReadStream() => throw new NotImplementedException();
+        public Stream CreateReadStream()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class RCLViews : IFileProvider
@@ -58,13 +67,13 @@ namespace Penguin.Cms.Web.Providers
                         }
                     }
                 }
-                catch (Exception e) { }
+                catch (Exception) { }
             }
         }
 
         public IDirectoryContents GetDirectoryContents(string subpath)
         {
-            string PathToCheck = CleanPath(subpath, true);
+            string PathToCheck = this.CleanPath(subpath, true);
 
             RazorDirectoryContents directoryContents = new RazorDirectoryContents();
 
@@ -99,7 +108,7 @@ namespace Penguin.Cms.Web.Providers
 
         public IFileInfo GetFileInfo(string subpath)
         {
-            string PathToCheck = CleanPath(subpath);
+            string PathToCheck = this.CleanPath(subpath);
 
             RazorFileInfo fileInfo = new RazorFileInfo();
 
@@ -122,7 +131,10 @@ namespace Penguin.Cms.Web.Providers
             return fileInfo;
         }
 
-        public IChangeToken Watch(string filter) => throw new NotImplementedException();
+        public IChangeToken Watch(string filter)
+        {
+            throw new NotImplementedException();
+        }
 
         private string CleanPath(string toClean, bool Directory = false)
         {

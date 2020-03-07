@@ -13,8 +13,8 @@ namespace Penguin.Cms.Web.Providers
 {
     public class RCLStaticFiles : IPostConfigureOptions<StaticFileOptions>
     {
-        public static IFileProvider FileProvider { get; set; }
         private readonly IHostingEnvironment _environment;
+        public static IFileProvider FileProvider { get; set; }
 
         public RCLStaticFiles(IHostingEnvironment environment)
         {
@@ -54,7 +54,7 @@ namespace Penguin.Cms.Web.Providers
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                 }
             }

@@ -14,16 +14,16 @@ namespace Penguin.Cms.Web.Macros
 
         public Configuration(IProvideConfigurations configurationProvider)
         {
-            ConfigurationProvider = configurationProvider;
+            this.ConfigurationProvider = configurationProvider;
         }
 
-        public string this[string Name] => ConfigurationProvider.GetConfiguration(Name);
+        public string this[string Name] => this.ConfigurationProvider.GetConfiguration(Name);
 
         public List<Macro> GetMacros(object o)
         {
             List<Macro> toReturn = new List<Macro>();
 
-            Dictionary<string, string> allConfigs = ConfigurationProvider.AllConfigurations;
+            Dictionary<string, string> allConfigs = this.ConfigurationProvider.AllConfigurations;
 
             foreach (KeyValuePair<string, string> kvp in allConfigs)
             {
@@ -42,7 +42,7 @@ namespace Penguin.Cms.Web.Macros
         {
             string config = macro.From(":").To("}");
 
-            return ConfigurationProvider.GetConfiguration(config);
+            return this.ConfigurationProvider.GetConfiguration(config);
         }
     }
 }

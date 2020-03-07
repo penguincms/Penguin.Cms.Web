@@ -19,9 +19,9 @@ namespace Penguin.Cms.Web.Macros
         public IList<ITemplateProperty> Children { get; }
         public string DisplayName { get; set; }
 
-        public string MacroBody => "@(Model" + Path + "." + DisplayName + ")";
+        public string MacroBody => "@(Model" + this.Path + "." + this.DisplayName + ")";
         public string Path { get; set; }
-        IEnumerable<ITemplateProperty> ITemplateProperty.Children => Children;
+        IEnumerable<ITemplateProperty> ITemplateProperty.Children => this.Children;
 
         [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
         public ModelBindingMacro(string propertyName, Type type, string path = "", Stack<(string propertyName, Type type)>? overflowCheckHack = null)
@@ -38,10 +38,10 @@ namespace Penguin.Cms.Web.Macros
                 throw new Exception("What the fuck?");
             }
 
-            Children = new List<ITemplateProperty>();
+            this.Children = new List<ITemplateProperty>();
 
-            DisplayName = propertyName;
-            Path = path;
+            this.DisplayName = propertyName;
+            this.Path = path;
 
             if (type.GetCoreType() == CoreType.Reference)
             {
@@ -58,7 +58,7 @@ namespace Penguin.Cms.Web.Macros
                     if (!childProperty.GetCustomAttribute<DontAllowAttribute>()?.Context.HasFlag(DisplayContexts.TemplateBinding) ?? true)
                     {
                         overflowCheckHack.Push((cPropertyName, cType));
-                        Children.Add(new ModelBindingMacro(cPropertyName, cType, path + "." + propertyName, overflowCheckHack));
+                        this.Children.Add(new ModelBindingMacro(cPropertyName, cType, path + "." + propertyName, overflowCheckHack));
                         overflowCheckHack.Pop();
                     }
                 }

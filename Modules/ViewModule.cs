@@ -4,7 +4,7 @@ namespace Penguin.Cms.Web.Modules
 {
     public class ViewModule : IViewModule<object>
     {
-        public string Id { get { return Name.Replace(" ", "_"); } }
+        public string Id => this.Name.Replace(" ", "_");
         public object Model { get; }
 
         public string Name { get; }
@@ -12,9 +12,9 @@ namespace Penguin.Cms.Web.Modules
 
         public ViewModule(string viewPath, object model, string name)
         {
-            Model = model;
-            ViewPath = viewPath;
-            Name = name;
+            this.Model = model;
+            this.ViewPath = viewPath;
+            this.Name = name;
         }
     }
 }

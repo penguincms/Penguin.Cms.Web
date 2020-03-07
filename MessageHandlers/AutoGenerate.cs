@@ -3,7 +3,6 @@ using Penguin.Configuration.Abstractions.Interfaces;
 using Penguin.Extensions.Strings;
 using Penguin.Messaging.Abstractions.Interfaces;
 using Penguin.Messaging.Application.Messages;
-using Penguin.Persistence.Abstractions;
 using Penguin.Persistence.Database;
 using Penguin.Persistence.Database.Objects;
 using System;
@@ -17,12 +16,10 @@ namespace Penguin.Cms.Web.MessageHandlers
     [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
     public class AutoGenerate : IMessageHandler<Startup>
     {
-        protected IProvideConfigurations ConfigurationService { get; set; }
-
         public const string ROOT_NS = ".Database.Generate.";
         public const string STORED_PROCEDURE_FOLDER = "StoredProcedures";
-
         private const string UNSUPPORTED_SQL_TYPE_MESSAGE = "Unsupported SQL type";
+        protected IProvideConfigurations ConfigurationService { get; set; }
 
         public AutoGenerate(IProvideConfigurations configurationService)
         {

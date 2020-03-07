@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Penguin.Web.DependencyInjection;
 using System.Threading.Tasks;
 
 namespace Penguin.Cms.Web.Mvc.Middleware

@@ -31,26 +31,42 @@ namespace Penguin.Cms.Web.Extensions
 
         public const string SCRIPTS = "ScriptsToRender";
 
+        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         public static Func<IHtmlContent> Helper(
           this RazorPageBase page,
           Func<Func<object, IHtmlContent>> helper
-        ) => () => helper()(null!);
+        )
+        {
+            return () => helper()(null!);
+        }
 
+        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         public static Func<T1, IHtmlContent> Helper<T1>(
           this RazorPageBase page,
           Func<T1, Func<object, IHtmlContent>> helper
-        ) => p1 => helper(p1)(null!);
+        )
+        {
+            return p1 => helper(p1)(null!);
+        }
 
+        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         public static Func<T1, T2, IHtmlContent> Helper<T1, T2>(
           this RazorPageBase page,
           Func<T1, T2, Func<object, IHtmlContent>> helper
-        ) => (p1, p2) => helper(p1, p2)(null!);
+        )
+        {
+            return (p1, p2) => helper(p1, p2)(null!);
+        }
 
+        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         public static Func<T1, T2, T3, IHtmlContent> Helper<T1, T2, T3>(
           this RazorPageBase page,
           Func<T1, T2, T3, Func<object, IHtmlContent>> helper
 
-        ) => (p1, p2, p3) => helper(p1, p2, p3)(null!);
+        )
+        {
+            return (p1, p2, p3) => helper(p1, p2, p3)(null!);
+        }
 
         public static void AddResource(this IHtmlHelper helper, string resourceString)
         {
@@ -114,8 +130,14 @@ namespace Penguin.Cms.Web.Extensions
             return new HtmlString(output);
         }
 
-        public static HtmlString MaterialIcon(this IHtmlHelper helper, string name) => new HtmlString($"<i class=\"material-icons md-24\" icon-name=\"{name}\">{name}</i>");
 
+        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+        public static HtmlString MaterialIcon(this IHtmlHelper helper, string name)
+        {
+            return new HtmlString($"<i class=\"material-icons md-24\" icon-name=\"{name}\">{name}</i>");
+        }
+
+        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         public static HtmlString MaterialIcon(this IHtmlHelper helper, string name, Dictionary<string, string> attributes)
         {
             if (attributes is null)
@@ -133,7 +155,7 @@ namespace Penguin.Cms.Web.Extensions
             return new HtmlString($"<i class=\"material-icons md-24\" {attributeStrings} icon-name=\"{name}\">{name}</i>");
         }
 
-#pragma warning restore IDE0060 // Remove unused parameter
+
 
         public static IHtmlContent MetaRoute(this IHtmlHelper helper, Dictionary<string, object> routeValues, IMetaObject toRender)
         {
@@ -153,12 +175,12 @@ namespace Penguin.Cms.Web.Extensions
 
             if (string.IsNullOrWhiteSpace(ControllerName))
             {
-                throw new ArgumentException(nameof(routeValues), "Controller name must be specified");
+                throw new ArgumentException("Controller name must be specified", nameof(routeValues));
             }
 
             if (string.IsNullOrWhiteSpace(ActionName))
             {
-                throw new ArgumentException(nameof(routeValues), "Action name must be specified");
+                throw new ArgumentException("Action name must be specified", nameof(routeValues));
             }
 
             Type ControllerType = ControllerFactory.GetControllerType(ControllerName, routeValues["area"].ToString());
@@ -216,7 +238,6 @@ namespace Penguin.Cms.Web.Extensions
             return task.Result;
         }
 
-#pragma warning disable IDE0060 // Remove unused parameter
 
         // etc. for as high as you want to take the # of parameters
 
