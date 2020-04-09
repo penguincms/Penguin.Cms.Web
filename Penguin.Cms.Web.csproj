@@ -20,20 +20,20 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
-    <PackageReference Include="Penguin.Messaging.Application" Version="2.1.1-T9RVMZA" />
-    <PackageReference Include="Penguin.Templating.Abstractions" Version="1.0.1-T9RVMZA" />
-    <PackageReference Include="Penguin.Testing" Version="1.1.9-T9RVMZA" />
-    <PackageReference Include="Penguin.Web.Errors" Version="1.0.1-T9RVMZA" />
-    <PackageReference Include="Penguin.Web.Mvc" Version="2.0.5-T9RZIJ8" />
-    <PackageReference Include="Penguin.Configuration" Version="2.0.2-T9SPWN8" />
-    <PackageReference Include="Penguin.Files" Version="1.0.1-T9SPWN8" />
-    <PackageReference Include="Penguin.Cms.Abstractions" Version="1.0.1-T9UEEAT" />
-    <PackageReference Include="Penguin.Persistence.Repositories" Version="3.0.3-T9UEEAT" />
-    <PackageReference Include="Penguin.Web.DependencyInjection" Version="1.0.6-T9UEEAT" />
-    <PackageReference Include="Penguin.Cms.Entities" Version="3.0.4-T9UEEAT" />
-    <PackageReference Include="Penguin.Reflection.Serialization.Extensions" Version="3.0.5-T9UEEAT" />
-    <PackageReference Include="Penguin.Persistence.Database" Version="2.0.9-T9UEEAT" />
-    <PackageReference Include="Penguin.Extensions.Collections" Version="2.0.4-T9UEEAT" />
-    <PackageReference Include="Penguin.Web.Abstractions" Version="1.0.1-T9UEQUJ" />
+    <PackageReference Include="Penguin.Messaging.Application" Version="2.1.1-T9UFJ6O" />
+    <PackageReference Include="Penguin.Web.Mvc" Version="2.0.5-T9UFJ6O" />
+    <PackageReference Include="Penguin.Files" Version="1.0.1-T9UFJ6O" />
+    <PackageReference Include="Penguin.Cms.Abstractions" Version="1.0.1-T9UFJ6O" />
+    <PackageReference Include="Penguin.Web.DependencyInjection" Version="1.0.6-T9UFJ6O" />
+    <PackageReference Include="Penguin.Templating.Abstractions" Version="1.0.1-T9UFJ6O" />
+    <PackageReference Include="Penguin.Testing" Version="1.1.9-T9UFJ6O" />
+    <PackageReference Include="Penguin.Web.Errors" Version="1.0.1-T9UFJ6O" />
+    <PackageReference Include="Penguin.Configuration" Version="2.0.2-T9UFJ6O" />
+    <PackageReference Include="Penguin.Persistence.Repositories" Version="3.0.3-T9UFJ6O" />
+    <PackageReference Include="Penguin.Cms.Entities" Version="3.0.4-T9UFJ6O" />
+    <PackageReference Include="Penguin.Reflection.Serialization.Extensions" Version="3.0.5-T9UFJ6O" />
+    <PackageReference Include="Penguin.Persistence.Database" Version="2.0.9-T9UFJ6O" />
+    <PackageReference Include="Penguin.Extensions.Collections" Version="2.0.4-T9UFJ6O" />
+    <PackageReference Include="Penguin.Web.Abstractions" Version="1.0.1-T9UFJ6O" />
   </ItemGroup>
 </Project>
