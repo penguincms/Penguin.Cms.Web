@@ -7,20 +7,27 @@ using Penguin.DependencyInjection.ServiceProviders;
 using Penguin.DependencyInjection.ServiceScopes;
 using Penguin.Web.DependencyInjection;
 using System;
-using System.Diagnostics.Contracts;
 using DependencyEngine = Penguin.DependencyInjection.Engine;
 
 namespace Penguin.Cms.Web.DependencyInjection
 {
+    /// <summary>
+    /// A service provider factory that creates a new scoped Penguin DependencyInjector instance and
+    /// populates it with the required MVC registrations from the provided service collection
+    /// </summary>
     public class ServiceProviderFactory : IServiceProviderFactory<ContainerBuilder>
     {
+        /// <summary>
+        /// Creates a dummy container builder and registers the required services
+        /// </summary>
+        /// <param name="services">The MVC service collection</param>
+        /// <returns>A dummy container builder</returns>
         public ContainerBuilder CreateBuilder(IServiceCollection services)
         {
-            Contract.Requires(services != null);
-
-            //DependencyEngine engine = new DependencyEngine();
-
-            //DependencyEngine.DetectCircularResolution = true;
+            if (services is null)
+            {
+                throw new ArgumentNullException(nameof(services));
+            }
 
             DependencyEngine.Register<IServiceScopeFactory, PerRequestScopeFactory>();
             DependencyEngine.Register<IServiceProvider, DependencyEngine>(typeof(ScopedServiceProvider));
@@ -30,7 +37,7 @@ namespace Penguin.Cms.Web.DependencyInjection
 
             foreach (ServiceDescriptor descriptor in services)
             {
-                Type lifeTime = null;
+                Type? lifeTime = null;
 
                 switch (descriptor.Lifetime)
                 {
@@ -64,6 +71,11 @@ namespace Penguin.Cms.Web.DependencyInjection
             return new ContainerBuilder();
         }
 
+        /// <summary>
+        /// Creates a new instance of the Scoped Service Provider
+        /// </summary>
+        /// <param name="containerBuilder">The dummy container builder</param>
+        /// <returns>A new scoped service provider</returns>
         public IServiceProvider CreateServiceProvider(ContainerBuilder containerBuilder)
         {
             using ScopedServiceScope scoped = new ScopedServiceScope();

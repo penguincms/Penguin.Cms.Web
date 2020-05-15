@@ -130,7 +130,6 @@ namespace Penguin.Cms.Web.Extensions
             return new HtmlString(output);
         }
 
-
         [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         public static HtmlString MaterialIcon(this IHtmlHelper helper, string name)
         {
@@ -154,8 +153,6 @@ namespace Penguin.Cms.Web.Extensions
 
             return new HtmlString($"<i class=\"material-icons md-24\" {attributeStrings} icon-name=\"{name}\">{name}</i>");
         }
-
-
 
         public static IHtmlContent MetaRoute(this IHtmlHelper helper, Dictionary<string, object> routeValues, IMetaObject toRender)
         {
@@ -237,7 +234,6 @@ namespace Penguin.Cms.Web.Extensions
 
             return task.Result;
         }
-
 
         // etc. for as high as you want to take the # of parameters
 
@@ -338,6 +334,7 @@ namespace Penguin.Cms.Web.Extensions
             return new HtmlString(htmlContent);
         }
 
+        [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         private static TService GetServiceOrFail<TService>(HttpContext httpContext)
         {
             if (httpContext == null)
@@ -355,15 +352,26 @@ namespace Penguin.Cms.Web.Extensions
             return (TService)service;
         }
 
+        /// <summary>
+        /// Renders the partial to a string
+        /// </summary>
+        /// <param name="helper">The current HtmlHelper from the calling context</param>
+        /// <param name="partialName">The name of the view to render</param>
+        /// <returns>A string representation of the body of the rendered partial</returns>
         public static string PartialToString(this IHtmlHelper helper, string partialName)
         {
-            StringWriter writer = new System.IO.StringWriter();
+            using StringWriter writer = new System.IO.StringWriter();
 #pragma warning disable MVC1000 // Use of IHtmlHelper.{0} should be avoided.
             helper.Partial(partialName).WriteTo(writer, HtmlEncoder.Default);
 #pragma warning restore MVC1000 // Use of IHtmlHelper.{0} should be avoided.
             return writer.ToString();
         }
 
+        /// <summary>
+        /// Adds the given filenames to the back end list of CSS files to find and include in the layout
+        /// </summary>
+        /// <param name="helper">The current HtmlHelper from the calling context</param>
+        /// <param name="fileNames">A list of the filenames to add to the back end list of CSS files</param>
         public static void IncludeCSS(this IHtmlHelper helper, params string[] fileNames)
         {
             string version = DateTime.Now.ToString("yyyyMMddhhmm", CultureInfo.CurrentCulture);
@@ -400,6 +408,11 @@ namespace Penguin.Cms.Web.Extensions
             }
         }
 
+        /// <summary>
+        /// Returns a registered instance of a FileService 
+        /// </summary>
+        /// <param name="helper">The current HtmlHelper from the calling context</param>
+        /// <returns>A registered instance of a FileService </returns>
         public static FileService GetFileService(this IHtmlHelper helper)
         {
             if (helper is null)
@@ -412,6 +425,13 @@ namespace Penguin.Cms.Web.Extensions
 
         private const string URL_EMPTY_MESSAGE = "Url can not be null or whitespace";
 
+        /// <summary>
+        /// Checks if the current path exists under the wwwroot folder, using the registered FileService
+        /// </summary>
+        /// <param name="helper">The current HtmlHelper from the calling context</param>
+        /// <param name="url">The path to check, relative to the wwwroot folder</param>
+        /// <returns>True if the resource exists in the registered FileService</returns>
+        [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static bool UrlExists(this IHtmlHelper helper, string url)
         {
             if (string.IsNullOrWhiteSpace(url))

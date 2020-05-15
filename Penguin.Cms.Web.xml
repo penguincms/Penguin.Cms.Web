@@ -4,12 +4,92 @@
         <name>Penguin.Cms.Web</name>
     </assembly>
     <members>
+        <member name="T:Penguin.Cms.Web.DependencyInjection.ServiceProviderFactory">
+            <summary>
+            A service provider factory that creates a new scoped Penguin DependencyInjector instance and
+            populates it with the required MVC registrations from the provided service collection
+            </summary>
+        </member>
+        <member name="M:Penguin.Cms.Web.DependencyInjection.ServiceProviderFactory.CreateBuilder(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Creates a dummy container builder and registers the required services
+            </summary>
+            <param name="services">The MVC service collection</param>
+            <returns>A dummy container builder</returns>
+        </member>
+        <member name="M:Penguin.Cms.Web.DependencyInjection.ServiceProviderFactory.CreateServiceProvider(Penguin.Cms.Web.Mvc.ContainerBuilder)">
+            <summary>
+            Creates a new instance of the Scoped Service Provider
+            </summary>
+            <param name="containerBuilder">The dummy container builder</param>
+            <returns>A new scoped service provider</returns>
+        </member>
+        <member name="M:Penguin.Cms.Web.Extensions.EntityExtensions.TryGetGuid(Penguin.Cms.Entities.Entity)">
+            <summary>
+            Guid.Empty if entity is null, else Guid
+            </summary>
+            <param name="e">The entity to check</param>
+            <returns>Guid.Empty if entity is null, else Guid</returns>
+        </member>
         <member name="M:Penguin.Cms.Web.Extensions.FileServiceExtensions.ContentExists(Penguin.Files.Services.FileService,System.String)">
             <summary>
             Checks if a file exists on disk. This is here because IO on the disk is VERY slow
             </summary>
             <param name="Uri"></param>
             <returns></returns>
+        </member>
+        <member name="M:Penguin.Cms.Web.Extensions.IHtmlHelperExtensions.PartialToString(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Renders the partial to a string
+            </summary>
+            <param name="helper">The current HtmlHelper from the calling context</param>
+            <param name="partialName">The name of the view to render</param>
+            <returns>A string representation of the body of the rendered partial</returns>
+        </member>
+        <member name="M:Penguin.Cms.Web.Extensions.IHtmlHelperExtensions.IncludeCSS(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String[])">
+            <summary>
+            Adds the given filenames to the back end list of CSS files to find and include in the layout
+            </summary>
+            <param name="helper">The current HtmlHelper from the calling context</param>
+            <param name="fileNames">A list of the filenames to add to the back end list of CSS files</param>
+        </member>
+        <member name="M:Penguin.Cms.Web.Extensions.IHtmlHelperExtensions.GetFileService(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary>
+            Returns a registered instance of a FileService 
+            </summary>
+            <param name="helper">The current HtmlHelper from the calling context</param>
+            <returns>A registered instance of a FileService </returns>
+        </member>
+        <member name="M:Penguin.Cms.Web.Extensions.IHtmlHelperExtensions.UrlExists(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
+            <summary>
+            Checks if the current path exists under the wwwroot folder, using the registered FileService
+            </summary>
+            <param name="helper">The current HtmlHelper from the calling context</param>
+            <param name="url">The path to check, relative to the wwwroot folder</param>
+            <returns>True if the resource exists in the registered FileService</returns>
+        </member>
+        <member name="T:Penguin.Cms.Web.Mvc.ContainerBuilder">
+            <summary>
+            This empty class is required to create an instance of the ServiceProviderFactory
+            </summary>
+        </member>
+        <member name="T:Penguin.Cms.Web.Mvc.Middleware.ConfigurePersistenceMiddleware">
+            <summary>
+            A class intended to catch a failed database configuration and return a setup page
+            </summary>
+        </member>
+        <member name="M:Penguin.Cms.Web.Mvc.Middleware.ConfigurePersistenceMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Constructs a new instance of this class
+            </summary>
+            <param name="next">The RequestDelegate</param>
+        </member>
+        <member name="M:Penguin.Cms.Web.Mvc.Middleware.ConfigurePersistenceMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Invokes this middleware
+            </summary>
+            <param name="context">The current HttpContext</param>
+            <returns>A task for the middleware execution</returns>
         </member>
     </members>
 </doc>
