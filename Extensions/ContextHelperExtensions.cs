@@ -138,9 +138,9 @@ namespace Penguin.Cms.Web.Extensions
 
         public static bool IsKey(IMetaObject o)
         {
-            if (o is MetaObject && o.GetParent() != null)
+            if (o?.GetParent() is IMetaObject parent)
             {
-                return o.Property.Name == GetKeyForType(o.GetParent(), false);
+                return o.Property.Name == GetKeyForType(parent, false);
             }
             else
             {
