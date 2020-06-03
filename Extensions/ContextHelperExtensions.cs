@@ -3,7 +3,6 @@ using Penguin.Persistence.Abstractions;
 using Penguin.Persistence.Abstractions.Attributes.Control;
 using Penguin.Reflection.Serialization.Abstractions.Interfaces;
 using Penguin.Reflection.Serialization.Extensions;
-using Penguin.Reflection.Serialization.Objects;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -138,7 +137,7 @@ namespace Penguin.Cms.Web.Extensions
 
         public static bool IsKey(IMetaObject o)
         {
-            if (o?.GetParent() is IMetaObject parent)
+            if (o?.Parent is IMetaObject parent)
             {
                 return o.Property.Name == GetKeyForType(parent, false);
             }

@@ -35,9 +35,9 @@ namespace Penguin.Cms.Web.Extensions
 
             IMetaObject parent = o;
 
-            while (parent?.GetParent() != null)
+            while (parent.Parent != null)
             {
-                parent = parent.GetParent();
+                parent = parent.Parent;
             }
 
             return parent!;
@@ -50,7 +50,7 @@ namespace Penguin.Cms.Web.Extensions
                 throw new ArgumentNullException(nameof(o));
             }
 
-            return o.GetParent() is null;
+            return o.Parent is null;
         }
     }
 }
