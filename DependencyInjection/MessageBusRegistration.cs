@@ -11,6 +11,11 @@ namespace Penguin.Cms.Web.DependencyInjection
     {
         public void RegisterDependencies(IServiceRegister serviceRegister)
         {
+            if (serviceRegister is null)
+            {
+                throw new ArgumentNullException(nameof(serviceRegister));
+            }
+
             serviceRegister.Register(typeof(MessageBus), typeof(MessageBus), ServiceLifetime.Transient);
 
             foreach (Type t in TypeFactory.GetAllImplementations(typeof(IMessageHandler<>)))

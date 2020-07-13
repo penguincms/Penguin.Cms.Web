@@ -23,6 +23,10 @@ namespace Penguin.Cms.Web.Providers
 
         public void PostConfigure(string name, StaticFileOptions options)
         {
+            if (options is null)
+            {
+                throw new ArgumentNullException(nameof(options));
+            }
             // Basic initialization in case the options weren't initialized by any other component
             options.ContentTypeProvider ??= new FileExtensionContentTypeProvider();
 

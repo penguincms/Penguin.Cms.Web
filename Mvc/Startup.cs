@@ -53,7 +53,7 @@ namespace Penguin.Cms.Web.Mvc
         {
             try
             {
-                Contract.Requires(services != null);
+                
 
                 if (!Monitor.TryEnter(BootLock))
                 {

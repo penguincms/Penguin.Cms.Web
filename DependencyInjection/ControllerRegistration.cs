@@ -10,6 +10,11 @@ namespace Penguin.Cms.Web.DependencyInjection
     {
         public void RegisterDependencies(IServiceRegister serviceRegister)
         {
+            if (serviceRegister is null)
+            {
+                throw new ArgumentNullException(nameof(serviceRegister));
+            }
+
             foreach (Type controllerType in TypeFactory.GetDerivedTypes(typeof(Controller)))
             {
                 serviceRegister.Register(controllerType, controllerType, ServiceLifetime.Scoped);

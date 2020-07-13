@@ -52,6 +52,11 @@ namespace Penguin.Cms.Web.Providers
 
         public static void Include(ApplicationPartManager apm)
         {
+            if (apm is null)
+            {
+                throw new ArgumentNullException(nameof(apm));
+            }
+
             string[] assemblyFiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.dll", SearchOption.AllDirectories);
             foreach (string assemblyFile in assemblyFiles)
             {
@@ -73,7 +78,12 @@ namespace Penguin.Cms.Web.Providers
 
         public IDirectoryContents GetDirectoryContents(string subpath)
         {
-            string PathToCheck = this.CleanPath(subpath, true);
+            if (subpath is null)
+            {
+                throw new ArgumentNullException(nameof(subpath));
+            }
+
+            string PathToCheck = CleanPath(subpath, true);
 
             RazorDirectoryContents directoryContents = new RazorDirectoryContents();
 
@@ -108,7 +118,12 @@ namespace Penguin.Cms.Web.Providers
 
         public IFileInfo GetFileInfo(string subpath)
         {
-            string PathToCheck = this.CleanPath(subpath);
+            if (subpath is null)
+            {
+                throw new ArgumentNullException(nameof(subpath));
+            }
+
+            string PathToCheck = CleanPath(subpath);
 
             RazorFileInfo fileInfo = new RazorFileInfo();
 
@@ -136,7 +151,7 @@ namespace Penguin.Cms.Web.Providers
             throw new NotImplementedException();
         }
 
-        private string CleanPath(string toClean, bool Directory = false)
+        private static string CleanPath(string toClean, bool Directory = false)
         {
             string pathToCheck = toClean;
 

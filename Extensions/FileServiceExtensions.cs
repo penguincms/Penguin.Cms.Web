@@ -12,6 +12,16 @@ namespace Penguin.Cms.Web.Extensions
         /// <returns></returns>
         public static bool ContentExists(this FileService fileService, string Uri)
         {
+            if (fileService is null)
+            {
+                throw new System.ArgumentNullException(nameof(fileService));
+            }
+
+            if (Uri is null)
+            {
+                throw new System.ArgumentNullException(nameof(Uri));
+            }
+
             return fileService.Exists(Path.Combine("~/wwwroot", TrimTilde(Uri)));
         }
 
