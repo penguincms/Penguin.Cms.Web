@@ -48,7 +48,7 @@ namespace Penguin.Cms.Web.Providers
 
     public class RCLViews : IFileProvider
     {
-        public static ConcurrentBag<RazorCompiledItemAttribute> RazorViews = new ConcurrentBag<RazorCompiledItemAttribute>();
+        public static ConcurrentBag<RazorCompiledItemAttribute> RazorViews { get; set; } = new ConcurrentBag<RazorCompiledItemAttribute>();
 
         public static void Include(ApplicationPartManager apm)
         {
