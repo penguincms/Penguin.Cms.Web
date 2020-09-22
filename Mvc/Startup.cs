@@ -53,8 +53,6 @@ namespace Penguin.Cms.Web.Mvc
         {
             try
             {
-                
-
                 if (!Monitor.TryEnter(BootLock))
                 {
                     return;
@@ -125,7 +123,12 @@ namespace Penguin.Cms.Web.Mvc
 
                 app.UseSession();
                 //app.UseHttpsRedirection();
-                app.UseStaticFiles();
+
+                app.UseStaticFiles(new StaticFileOptions()
+                {
+                    ServeUnknownFileTypes = true
+                });
+
                 app.UseCookiePolicy();
 
                 app.UseWhen(context => PersistenceConfigured, appBuilder =>
