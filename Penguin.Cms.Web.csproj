@@ -28,12 +28,12 @@
     <PackageReference Include="Penguin.Web.Abstractions" Version="5.0.1-TA2OIRX" />
     <PackageReference Include="Penguin.Configuration" Version="5.0.1-TA2OIRX" />
     <PackageReference Include="Penguin.Files" Version="5.0.1-TA2OIRX" />
-    <PackageReference Include="Penguin.Cms.Abstractions" Version="5.0.1-TA2VU4J" />
     <PackageReference Include="Penguin.Web.DependencyInjection" Version="5.0.1-TA2VU4J" />
-    <PackageReference Include="Penguin.Persistence.Repositories" Version="5.0.1-TA2VU4J" />
-    <PackageReference Include="Penguin.Cms.Entities" Version="5.0.1-TA2VU4J" />
-    <PackageReference Include="Penguin.Persistence.Database" Version="5.0.1-TA2VU4J" />
     <PackageReference Include="Penguin.Extensions.Collections" Version="5.0.1-TA2VU4J" />
     <PackageReference Include="Penguin.Reflection.Serialization.Extensions" Version="5.0.1-TA2VU4J" />
+    <PackageReference Include="Penguin.Cms.Abstractions" Version="5.0.1-TA3REW0" />
+    <PackageReference Include="Penguin.Persistence.Repositories" Version="5.0.1-TA3REW0" />
+    <PackageReference Include="Penguin.Cms.Entities" Version="5.0.1-TA3REW0" />
+    <PackageReference Include="Penguin.Persistence.Database" Version="5.0.1-TA3REW0" />
   </ItemGroup>
 </Project>
