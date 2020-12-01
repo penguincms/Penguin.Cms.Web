@@ -20,20 +20,20 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
-    <PackageReference Include="Penguin.Messaging.Application" Version="5.0.1-TA56XNT" />
     <PackageReference Include="Penguin.Web.Mvc" Version="5.0.1-TA56XNT" />
     <PackageReference Include="Penguin.Templating.Abstractions" Version="5.0.1-TA56XNT" />
-    <PackageReference Include="Penguin.Testing" Version="5.0.1-TA56XNT" />
-    <PackageReference Include="Penguin.Web.Errors" Version="5.0.1-TA56XNT" />
     <PackageReference Include="Penguin.Web.Abstractions" Version="5.0.1-TA56XNT" />
     <PackageReference Include="Penguin.Configuration" Version="5.0.1-TA56XNT" />
-    <PackageReference Include="Penguin.Files" Version="5.0.1-TA56XNT" />
-    <PackageReference Include="Penguin.Web.DependencyInjection" Version="5.0.1-TA56XNT" />
     <PackageReference Include="Penguin.Extensions.Collections" Version="5.0.1-TA56XNT" />
     <PackageReference Include="Penguin.Cms.Abstractions" Version="5.0.1-TA56XNT" />
-    <PackageReference Include="Penguin.Persistence.Repositories" Version="5.0.1-TA56XNT" />
     <PackageReference Include="Penguin.Cms.Entities" Version="5.0.1-TA56XNT" />
-    <PackageReference Include="Penguin.Persistence.Database" Version="5.0.1-TA56XNT" />
-    <PackageReference Include="Penguin.Reflection.Serialization.Extensions" Version="5.0.1-TA56XNT" />
+    <PackageReference Include="Penguin.Messaging.Application" Version="5.0.1-TA5WW7O" />
+    <PackageReference Include="Penguin.Testing" Version="5.0.1-TA5WW7O" />
+    <PackageReference Include="Penguin.Web.Errors" Version="5.0.1-TA5WW7O" />
+    <PackageReference Include="Penguin.Files" Version="5.0.1-TA5WW7O" />
+    <PackageReference Include="Penguin.Web.DependencyInjection" Version="5.0.1-TA5WW7O" />
+    <PackageReference Include="Penguin.Persistence.Repositories" Version="5.0.1-TA5WW7O" />
+    <PackageReference Include="Penguin.Persistence.Database" Version="5.0.1-TA5WW7O" />
+    <PackageReference Include="Penguin.Reflection.Serialization.Extensions" Version="5.0.1-TA5WW7O" />
   </ItemGroup>
 </Project>
