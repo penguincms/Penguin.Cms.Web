@@ -10,7 +10,6 @@ using System.Reflection;
 
 namespace Penguin.Cms.Web.Mvc
 {
-    [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
     public class ControllerFactory : IControllerFactory
     {
         public ControllerFactory()

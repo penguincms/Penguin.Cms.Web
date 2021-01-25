@@ -12,7 +12,6 @@ using System.Text;
 
 namespace Penguin.Cms.Web.Extensions
 {
-    [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
     public class ContextHelper
     {
         private const string KEY_NOT_FOUND_MESSAGE = "Key not found. Logic might need to be added to find a key based on attribute";

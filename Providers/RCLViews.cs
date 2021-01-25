@@ -155,17 +155,17 @@ namespace Penguin.Cms.Web.Providers
         {
             string pathToCheck = toClean;
 
-            if (!pathToCheck.EndsWith("/") && Directory)
+            if (!pathToCheck.EndsWith('/') && Directory)
             {
                 pathToCheck = $"{pathToCheck}/";
             }
 
-            if (pathToCheck.StartsWith("~"))
+            if (pathToCheck.StartsWith('~'))
             {
-                pathToCheck = pathToCheck.Substring(1);
+                pathToCheck = pathToCheck[1..];
             }
 
-            if (!pathToCheck.StartsWith("/"))
+            if (!pathToCheck.StartsWith('/'))
             {
                 pathToCheck = $"/{pathToCheck}";
             }

@@ -334,7 +334,6 @@ namespace Penguin.Cms.Web.Extensions
             return new HtmlString(htmlContent);
         }
 
-        [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         private static TService GetServiceOrFail<TService>(HttpContext httpContext)
         {
             if (httpContext == null)
@@ -386,7 +385,7 @@ namespace Penguin.Cms.Web.Extensions
                 }
                 else
                 {
-                    file = resourceName.Substring(1);
+                    file = resourceName[1..];
                 }
 
                 string cssUrl = $"{file}.css";
@@ -431,7 +430,6 @@ namespace Penguin.Cms.Web.Extensions
         /// <param name="helper">The current HtmlHelper from the calling context</param>
         /// <param name="url">The path to check, relative to the wwwroot folder</param>
         /// <returns>True if the resource exists in the registered FileService</returns>
-        [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>")]
         public static bool UrlExists(this IHtmlHelper helper, string url)
         {
             if (string.IsNullOrWhiteSpace(url))
@@ -455,7 +453,7 @@ namespace Penguin.Cms.Web.Extensions
                 }
                 else
                 {
-                    file = resourceName.Substring(1);
+                    file = resourceName[1..];
                 }
 
                 string jsUrl = $"{file}.js";

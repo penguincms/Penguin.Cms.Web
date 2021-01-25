@@ -8,11 +8,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
-#pragma warning disable CA1716 // Identifiers should not match keywords
 
 namespace Penguin.Cms.Web.Macros
 {
-#pragma warning restore CA1716 // Identifiers should not match keywords
 
     public class ModelBindingMacro : ITemplateProperty
     {
@@ -23,7 +21,6 @@ namespace Penguin.Cms.Web.Macros
         public string Path { get; set; }
         IEnumerable<ITemplateProperty> ITemplateProperty.Children => this.Children;
 
-        [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
         public ModelBindingMacro(string propertyName, Type type, string path = "", Stack<(string propertyName, Type type)>? overflowCheckHack = null)
         {
             if (type is null)

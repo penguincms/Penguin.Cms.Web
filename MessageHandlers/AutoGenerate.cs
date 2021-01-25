@@ -26,8 +26,6 @@ namespace Penguin.Cms.Web.MessageHandlers
             this.ConfigurationService = configurationService;
         }
 
-        [SuppressMessage("Style", "IDE0060:Remove unused parameter")]
-        [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
         public void AcceptMessage(Startup bootMessage)
         {
             foreach (Assembly thisAssembly in AppDomain.CurrentDomain.GetAssemblies())

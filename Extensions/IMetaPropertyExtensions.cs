@@ -11,7 +11,6 @@ using System.Reflection;
 
 namespace Penguin.Cms.Web.Extensions
 {
-    [SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters")]
     public static class IMetaPropertyExtensions
     {
         public static string DisplayName(this IMetaProperty property)

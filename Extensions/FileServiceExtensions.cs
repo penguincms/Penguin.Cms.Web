@@ -27,13 +27,13 @@ namespace Penguin.Cms.Web.Extensions
 
         private static string TrimTilde(string uri)
         {
-            if (!uri.StartsWith("~"))
+            if (!uri.StartsWith("~", System.StringComparison.OrdinalIgnoreCase))
             {
                 return uri;
             }
             else
             {
-                return uri.Substring(2);
+                return uri[2..];
             }
         }
     }

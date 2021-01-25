@@ -24,7 +24,6 @@ using Penguin.Web.DependencyInjection;
 using Penguin.Web.Errors.Middleware;
 using System;
 using System.Collections.Concurrent;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
 using System.Threading;

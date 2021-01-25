@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Penguin.Cms.Web.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -47,10 +46,13 @@ namespace Penguin.Cms.Web.Mvc
         }
 
         //https://docs.microsoft.com/en-us/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2
-        public static IHostBuilder Configure(params string[] args) => new Microsoft.Extensions.Hosting.HostBuilder()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseServiceProviderFactory(new ServiceProviderFactory())
-                .ConfigureAppConfiguration((ctx, config) => ConfigConfiguration(ctx, config, args));
+        public static IHostBuilder Configure(params string[] args)
+        {
+            return new Microsoft.Extensions.Hosting.HostBuilder()
+.UseContentRoot(Directory.GetCurrentDirectory())
+.UseServiceProviderFactory(new ServiceProviderFactory())
+.ConfigureAppConfiguration((ctx, config) => ConfigConfiguration(ctx, config, args));
+        }
 
         //https://stackoverflow.com/questions/46364293/automatically-set-appsettings-json-for-dev-and-release-environments-in-asp-net-c
         private static void ConfigConfiguration(HostBuilderContext ctx, IConfigurationBuilder config, params string[] args)
