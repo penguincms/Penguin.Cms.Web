@@ -24,16 +24,16 @@
     <PackageReference Include="Penguin.Templating.Abstractions" Version="5.0.2-TA9KKLU" />
     <PackageReference Include="Penguin.Web.Abstractions" Version="5.0.2-TA9KKLU" />
     <PackageReference Include="Penguin.Configuration" Version="5.0.2-TA9KKLU" />
-    <PackageReference Include="Penguin.Extensions.Collections" Version="5.0.2-TA9KKLU" />
-    <PackageReference Include="Penguin.Cms.Abstractions" Version="5.0.2-TA9KKLU" />
-    <PackageReference Include="Penguin.Cms.Entities" Version="5.0.2-TA9KKLU" />
     <PackageReference Include="Penguin.Messaging.Application" Version="5.0.2-TA9KKLU" />
     <PackageReference Include="Penguin.Testing" Version="5.0.2-TA9KKLU" />
     <PackageReference Include="Penguin.Web.Errors" Version="5.0.2-TA9KKLU" />
-    <PackageReference Include="Penguin.Web.DependencyInjection" Version="5.0.2-TA9KKLU" />
-    <PackageReference Include="Penguin.Persistence.Repositories" Version="5.0.2-TA9KKLU" />
-    <PackageReference Include="Penguin.Persistence.Database" Version="5.0.2-TA9KKLU" />
-    <PackageReference Include="Penguin.Reflection.Serialization.Extensions" Version="5.0.2-TA9KKLU" />
     <PackageReference Include="Penguin.Files" Version="5.0.2-TA9KKLU" />
+    <PackageReference Include="Penguin.Extensions.Collections" Version="5.0.2-TAA4YFP" />
+    <PackageReference Include="Penguin.Cms.Abstractions" Version="5.0.2-TAA4YFP" />
+    <PackageReference Include="Penguin.Cms.Entities" Version="5.0.2-TAA4YFP" />
+    <PackageReference Include="Penguin.Web.DependencyInjection" Version="5.0.2-TAA4YFP" />
+    <PackageReference Include="Penguin.Persistence.Repositories" Version="5.0.2-TAA4YFP" />
+    <PackageReference Include="Penguin.Persistence.Database" Version="5.0.2-TAA4YFP" />
+    <PackageReference Include="Penguin.Reflection.Serialization.Extensions" Version="5.0.2-TAA4YFP" />
   </ItemGroup>
 </Project>
