@@ -108,6 +108,44 @@ namespace Penguin.Cms.Web.Extensions
             return helper.Action(action, controller, area, parameters);
         }
 
+        /// <summary>
+        /// Renders scripts and CSS tags for /page/url.css and /page/url.js if those files exist
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <returns></returns>
+        public static HtmlString RenderPageIncludes(this IHtmlHelper helper)
+        {
+            if (helper is null)
+            {
+                throw new ArgumentNullException(nameof(helper));
+            }
+
+            string url = helper.ViewContext.HttpContext.Request.Path.ToString().Trim('/');
+
+            if(string.IsNullOrWhiteSpace(url))
+            {
+                return new HtmlString("");
+            }
+
+            JavascriptTag jsTag = helper.GenerateJsTag(url);
+
+            CssTag cssTag = helper.GenerateCssTag(url);
+
+            string toReturn = string.Empty;
+
+            if(jsTag.Exists)
+            {
+                toReturn += jsTag.ToString() + Environment.NewLine;
+            }
+
+            if(cssTag.Exists)
+            {
+                toReturn += cssTag.ToString() + Environment.NewLine;
+            }
+
+            return new HtmlString(toReturn);
+        }
+
         public static HtmlString RenderIncludes(this IHtmlHelper helper)
         {
             if (helper is null)
@@ -377,32 +415,14 @@ namespace Penguin.Cms.Web.Extensions
 
             foreach (string resourceName in fileNames)
             {
-                string file = resourceName;
+                CssTag tag = helper.GenerateCssTag(resourceName);
+                CssTag extentionTag = helper.GenerateCssTag($"{resourceName}.extension");
 
-                if (!file.StartsWith("/", StringComparison.OrdinalIgnoreCase))
+                helper.AddResource(tag.ToString());
+
+                if (extentionTag.Exists)
                 {
-                    file = $"css/{file}";
-                }
-                else
-                {
-                    file = resourceName[1..];
-                }
-
-                string cssUrl = $"{file}.css";
-                string cssExtensionUrl = $"{file}.extension.css";
-
-                string linkString = "<link href=\"{0}?BuildVersion={1}\" rel=\"stylesheet\" />";
-
-                void addLinkString(string s)
-                {
-                    helper.AddResource(string.Format(CultureInfo.CurrentCulture, linkString, "/" + s, version));
-                }
-
-                addLinkString(cssUrl);
-
-                if (helper.UrlExists(cssExtensionUrl))
-                {
-                    addLinkString(cssExtensionUrl);
+                    helper.AddResource(extentionTag.ToString());
                 }
             }
         }
@@ -440,41 +460,45 @@ namespace Penguin.Cms.Web.Extensions
             return helper.GetFileService().Exists(Path.Combine("wwwroot", url));
         }
 
+        private static JavascriptTag GenerateJsTag(this IHtmlHelper helper, string filename)
+        {
+            return new JavascriptTag(filename, helper);
+        }
+        private static CssTag GenerateCssTag(this IHtmlHelper helper, string filename)
+        {
+            return new CssTag(filename, helper);
+        }
+
+        /// <summary>
+        /// Adds javascript files to the cache to be rendered with RenderIncludes in the master
+        /// </summary>
+        /// <param name="helper">html helper source</param>
+        /// <param name="fileNames">The javascript file name relative to /js or absolute</param>
         public static void IncludeJS(this IHtmlHelper helper, params string[] fileNames)
         {
-            string version = DateTime.Now.ToString("yyyyMMddhhmm", CultureInfo.CurrentCulture);
+             
             foreach (string resourceName in fileNames.Reverse())
             {
-                string file = resourceName;
+                JavascriptTag tag = helper.GenerateJsTag(resourceName);
+                JavascriptTag extensionTag = helper.GenerateJsTag($"{resourceName}.extension");
 
-                if (!file.StartsWith("/", StringComparison.OrdinalIgnoreCase))
+                helper.AddResource(tag.ToString());
+
+                if (extensionTag.Exists)
                 {
-                    file = $"js/{file}";
-                }
-                else
-                {
-                    file = resourceName[1..];
-                }
-
-                string jsUrl = $"{file}.js";
-                string jsExtensionUrl = $"{file}.extension.js";
-
-                string linkString = "<script src=\"{0}?BuildVersion={1}\"></script>";
-
-                void addLinkString(string s)
-                {
-                    helper.AddResource(string.Format(CultureInfo.CurrentCulture, linkString, "/" + s, version));
-                }
-
-                addLinkString(jsUrl);
-
-                if (helper.UrlExists(jsExtensionUrl))
-                {
-                    addLinkString(jsExtensionUrl);
+                    helper.AddResource(extensionTag.ToString());
                 }
             }
         }
 
+        /// <summary>
+        /// Conditionally renders an Html Attribute with a value
+        /// </summary>
+        /// <param name="helper">Not used</param>
+        /// <param name="name">The attribute name</param>
+        /// <param name="value">The attribute value</param>
+        /// <param name="render">a bool determining if it should be rendered or not</param>
+        /// <returns></returns>
         [SuppressMessage("Style", "IDE0060:Remove unused parameter")]
         public static HtmlString Attribute(this IHtmlHelper helper, string name, string value, bool render)
         {
@@ -488,6 +512,13 @@ namespace Penguin.Cms.Web.Extensions
             return new HtmlString(output);
         }
 
+        /// <summary>
+        /// Conditionally renders an Html attribute without a value (ex checked)
+        /// </summary>
+        /// <param name="helper">not used</param>
+        /// <param name="name">The attribute name</param>
+        /// <param name="render">a bool determining if it should be rendered or not</param>
+        /// <returns></returns>
         [SuppressMessage("Style", "IDE0060:Remove unused parameter")]
         public static HtmlString Attribute(this IHtmlHelper helper, string name, bool render)
         {

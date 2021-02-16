@@ -38,6 +38,13 @@
             <param name="Uri"></param>
             <returns></returns>
         </member>
+        <member name="M:Penguin.Cms.Web.Extensions.IHtmlHelperExtensions.RenderPageIncludes(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
+            <summary>
+            Renders scripts and CSS tags for /page/url.css and /page/url.js if those files exist
+            </summary>
+            <param name="helper"></param>
+            <returns></returns>
+        </member>
         <member name="M:Penguin.Cms.Web.Extensions.IHtmlHelperExtensions.PartialToString(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String)">
             <summary>
             Renders the partial to a string
@@ -67,6 +74,32 @@
             <param name="helper">The current HtmlHelper from the calling context</param>
             <param name="url">The path to check, relative to the wwwroot folder</param>
             <returns>True if the resource exists in the registered FileService</returns>
+        </member>
+        <member name="M:Penguin.Cms.Web.Extensions.IHtmlHelperExtensions.IncludeJS(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String[])">
+            <summary>
+            Adds javascript files to the cache to be rendered with RenderIncludes in the master
+            </summary>
+            <param name="helper">html helper source</param>
+            <param name="fileNames">The javascript file name relative to /js or absolute</param>
+        </member>
+        <member name="M:Penguin.Cms.Web.Extensions.IHtmlHelperExtensions.Attribute(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.String,System.Boolean)">
+            <summary>
+            Conditionally renders an Html Attribute with a value
+            </summary>
+            <param name="helper">Not used</param>
+            <param name="name">The attribute name</param>
+            <param name="value">The attribute value</param>
+            <param name="render">a bool determining if it should be rendered or not</param>
+            <returns></returns>
+        </member>
+        <member name="M:Penguin.Cms.Web.Extensions.IHtmlHelperExtensions.Attribute(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper,System.String,System.Boolean)">
+            <summary>
+            Conditionally renders an Html attribute without a value (ex checked)
+            </summary>
+            <param name="helper">not used</param>
+            <param name="name">The attribute name</param>
+            <param name="render">a bool determining if it should be rendered or not</param>
+            <returns></returns>
         </member>
         <member name="T:Penguin.Cms.Web.Mvc.ContainerBuilder">
             <summary>
