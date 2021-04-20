@@ -411,6 +411,11 @@ namespace Penguin.Cms.Web.Extensions
         /// <param name="fileNames">A list of the filenames to add to the back end list of CSS files</param>
         public static void IncludeCSS(this IHtmlHelper helper, params string[] fileNames)
         {
+            if (fileNames is null)
+            {
+                throw new ArgumentNullException(nameof(fileNames));
+            }
+
             string version = DateTime.Now.ToString("yyyyMMddhhmm", CultureInfo.CurrentCulture);
 
             foreach (string resourceName in fileNames)
