@@ -122,7 +122,7 @@ namespace Penguin.Cms.Web.Extensions
 
             string url = helper.ViewContext.HttpContext.Request.Path.ToString().Trim('/');
 
-            if(string.IsNullOrWhiteSpace(url))
+            if (string.IsNullOrWhiteSpace(url))
             {
                 return new HtmlString("");
             }
@@ -133,12 +133,12 @@ namespace Penguin.Cms.Web.Extensions
 
             string toReturn = string.Empty;
 
-            if(jsTag.Exists)
+            if (jsTag.Exists)
             {
                 toReturn += jsTag.ToString() + Environment.NewLine;
             }
 
-            if(cssTag.Exists)
+            if (cssTag.Exists)
             {
                 toReturn += cssTag.ToString() + Environment.NewLine;
             }
@@ -416,8 +416,6 @@ namespace Penguin.Cms.Web.Extensions
                 throw new ArgumentNullException(nameof(fileNames));
             }
 
-            string version = DateTime.Now.ToString("yyyyMMddhhmm", CultureInfo.CurrentCulture);
-
             foreach (string resourceName in fileNames)
             {
                 CssTag tag = helper.GenerateCssTag(resourceName);
@@ -469,6 +467,7 @@ namespace Penguin.Cms.Web.Extensions
         {
             return new JavascriptTag(filename, helper);
         }
+
         private static CssTag GenerateCssTag(this IHtmlHelper helper, string filename)
         {
             return new CssTag(filename, helper);
@@ -481,7 +480,7 @@ namespace Penguin.Cms.Web.Extensions
         /// <param name="fileNames">The javascript file name relative to /js or absolute</param>
         public static void IncludeJS(this IHtmlHelper helper, params string[] fileNames)
         {
-             
+
             foreach (string resourceName in fileNames.Reverse())
             {
                 JavascriptTag tag = helper.GenerateJsTag(resourceName);

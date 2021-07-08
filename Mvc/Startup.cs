@@ -87,10 +87,8 @@ namespace Penguin.Cms.Web.Mvc
                            .Invoke(null, new object[] { services });
 
                 IMvcBuilder builder = services.AddMvc(options =>
-                {
                     // add custom binder to beginning of collection
-                    options.ModelBinderProviders.Insert(0, new FlagsEnumModelBinderProvider());
-                });
+                    options.ModelBinderProviders.Insert(0, new FlagsEnumModelBinderProvider()));
 
                 Type runtimeCompilation = TypeFactory.GetTypeByFullName("Microsoft.Extensions.DependencyInjection.RazorRuntimeCompilationMvcBuilderExtensions");
 
@@ -150,19 +148,13 @@ namespace Penguin.Cms.Web.Mvc
                     appBuilder.UseMiddleware<ExceptionHandling>();
                 });
 
-                app.UseWhen(context => !PersistenceConfigured, appBuilder =>
-                {
-                    appBuilder.UseMiddleware<ConfigurePersistenceMiddleware>();
-                });
+                app.UseWhen(context => !PersistenceConfigured, appBuilder => appBuilder.UseMiddleware<ConfigurePersistenceMiddleware>());
 
                 IProvideConfigurations provideConnectionStrings = new ConfigurationProviderList(
                         new JsonProvider(this.Configuration)
                 );
 
-                DependencyEngine.Register((serviceProvider) =>
-                {
-                    return provideConnectionStrings;
-                });
+                DependencyEngine.Register((serviceProvider) => provideConnectionStrings);
 
                 foreach (Type t in TypeFactory.GetAllImplementations(typeof(IRouteConfig)))
                 {

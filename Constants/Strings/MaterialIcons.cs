@@ -13,7 +13,6 @@ namespace Penguin.Cms.Web.Constants.Strings
         //var s = ''; $('.icon-item-container').each(function(i,e) { s += 'public string _' + $(e).attr('title') + ' = "' + $(e).attr('title') + '";\r\n'; });
 
 
-#pragma warning disable CA1707 // Identifiers should not contain underscores
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public const string _360 = "360";
         public const string _3d_rotation = "3d_rotation";
@@ -1060,7 +1059,7 @@ namespace Penguin.Cms.Web.Constants.Strings
         public const string _zoom_out = "zoom_out";
         public const string _zoom_out_map = "zoom_out_map";
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning restore CA1707 // Identifiers should not contain underscores
+
 
     }
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 
 namespace Penguin.Cms.Web.MessageHandlers
 {
-    [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores")]
+    
     public class AutoGenerate : IMessageHandler<Startup>
     {
         public const string ROOT_NS = ".Database.Generate.";

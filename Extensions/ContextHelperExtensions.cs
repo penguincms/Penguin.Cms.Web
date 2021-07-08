@@ -46,7 +46,7 @@ namespace Penguin.Cms.Web.Extensions
             return new Guid(hash);
         }
 
-        [SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms")]
+        
         public static Guid GetGuid(IMetaObject o)
         {
             if (o is null)
