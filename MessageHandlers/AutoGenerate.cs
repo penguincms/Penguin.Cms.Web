@@ -6,14 +6,13 @@ using Penguin.Messaging.Application.Messages;
 using Penguin.Persistence.Database;
 using Penguin.Persistence.Database.Objects;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 
 namespace Penguin.Cms.Web.MessageHandlers
 {
-    
+
     public class AutoGenerate : IMessageHandler<Startup>
     {
         public const string ROOT_NS = ".Database.Generate.";

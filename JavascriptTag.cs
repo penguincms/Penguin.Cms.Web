@@ -12,9 +12,6 @@ namespace Penguin.Cms.Web
 
         }
 
-        public override string ToString()
-        {
-            return $"<script src=\"/{this.Url}?BuildVersion={this.Version}\"></script>";
-        }
+        public override string ToString() => $"<script src=\"/{this.Url}?BuildVersion={this.Version}\"></script>";
     }
 }

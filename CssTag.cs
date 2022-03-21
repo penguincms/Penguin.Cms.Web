@@ -8,9 +8,6 @@ namespace Penguin.Cms.Web
         {
         }
 
-        public override string ToString()
-        {
-            return $"<link href=\"/{this.Url}?BuildVersion={this.Version}\" rel=\"stylesheet\" />";
-        }
+        public override string ToString() => $"<link href=\"/{this.Url}?BuildVersion={this.Version}\" rel=\"stylesheet\" />";
     }
 }

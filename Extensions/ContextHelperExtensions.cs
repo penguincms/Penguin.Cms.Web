@@ -46,7 +46,7 @@ namespace Penguin.Cms.Web.Extensions
             return new Guid(hash);
         }
 
-        
+
         public static Guid GetGuid(IMetaObject o)
         {
             if (o is null)
