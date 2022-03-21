@@ -1,4 +1,4 @@
-﻿using Penguin.Persistence.Abstractions.Attributes.Control;
+using Penguin.Persistence.Abstractions.Attributes.Control;
 using Penguin.Reflection.Abstractions;
 using Penguin.Reflection.Extensions;
 using Penguin.Templating.Abstractions.Interfaces;
@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
 
 namespace Penguin.Cms.Web.Macros
 {

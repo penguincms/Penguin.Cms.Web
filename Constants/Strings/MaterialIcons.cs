@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Penguin.Cms.Web.Constants.Strings
 {
@@ -11,7 +11,6 @@ namespace Penguin.Cms.Web.Constants.Strings
         };
 
         //var s = ''; $('.icon-item-container').each(function(i,e) { s += 'public string _' + $(e).attr('title') + ' = "' + $(e).attr('title') + '";\r\n'; });
-
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public const string _360 = "360";
@@ -1059,7 +1058,6 @@ namespace Penguin.Cms.Web.Constants.Strings
         public const string _zoom_out = "zoom_out";
         public const string _zoom_out_map = "zoom_out_map";
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-
 
     }
 }

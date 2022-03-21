@@ -1,4 +1,4 @@
-﻿using Penguin.Cms.Entities;
+using Penguin.Cms.Entities;
 using Penguin.Persistence.Abstractions;
 using Penguin.Persistence.Abstractions.Attributes.Control;
 using Penguin.Reflection.Serialization.Abstractions.Interfaces;
@@ -45,7 +45,6 @@ namespace Penguin.Cms.Web.Extensions
             byte[] hash = md5.ComputeHash(Encoding.Default.GetBytes($"{o.GetType().FullName}_{KeyValue}"));
             return new Guid(hash);
         }
-
 
         public static Guid GetGuid(IMetaObject o)
         {
