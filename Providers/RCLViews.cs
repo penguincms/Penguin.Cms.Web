@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Razor.Hosting;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
-using Penguin.Extensions.Strings;
+using Penguin.Extensions.String;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -18,9 +18,15 @@ namespace Penguin.Cms.Web.Providers
         public bool Exists { get; set; }
         public List<RazorFileInfo> RazorFileInfo { get; set; } = new List<RazorFileInfo>();
 
-        public IEnumerator<IFileInfo> GetEnumerator() => this.RazorFileInfo.GetEnumerator();
+        public IEnumerator<IFileInfo> GetEnumerator()
+        {
+            return this.RazorFileInfo.GetEnumerator();
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => this.RazorFileInfo.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.RazorFileInfo.GetEnumerator();
+        }
     }
 
     public class RazorFileInfo : IFileInfo
@@ -34,7 +40,10 @@ namespace Penguin.Cms.Web.Providers
         public string Name { get; set; }
         public string PhysicalPath { get; set; }
 
-        public Stream CreateReadStream() => throw new NotImplementedException();
+        public Stream CreateReadStream()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class RCLViews : IFileProvider
@@ -137,7 +146,10 @@ namespace Penguin.Cms.Web.Providers
             return fileInfo;
         }
 
-        public IChangeToken Watch(string filter) => throw new NotImplementedException();
+        public IChangeToken Watch(string filter)
+        {
+            throw new NotImplementedException();
+        }
 
         private static string CleanPath(string toClean, bool Directory = false)
         {

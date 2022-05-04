@@ -73,6 +73,9 @@ namespace Penguin.Cms.Web.Mvc
             return controller;
         }
 
-        public void ReleaseController(ControllerContext context, object controller) => throw new NotImplementedException();
+        public void ReleaseController(ControllerContext context, object controller)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

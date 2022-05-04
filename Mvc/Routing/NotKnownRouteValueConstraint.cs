@@ -11,6 +11,9 @@ namespace Penguin.Cms.Web.Mvc.Routing
         {
         }
 
-        public new bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection) => !base.Match(httpContext, route, routeKey, values, routeDirection);
+        public new bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
+        {
+            return !base.Match(httpContext, route, routeKey, values, routeDirection);
+        }
     }
 }

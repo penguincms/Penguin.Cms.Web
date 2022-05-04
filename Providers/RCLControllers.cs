@@ -14,7 +14,7 @@ namespace Penguin.Cms.Web.Providers
             List<Assembly> ControllerAssemblies = TypeFactory.GetDerivedTypes(typeof(Controller)).Select(t => t.Assembly).Distinct().ToList();
             foreach (Assembly a in ControllerAssemblies)
             {
-                builder.AddApplicationPart(a).AddControllersAsServices().AddViewComponentsAsServices();
+                _ = builder.AddApplicationPart(a).AddControllersAsServices().AddViewComponentsAsServices();
             }
         }
     }

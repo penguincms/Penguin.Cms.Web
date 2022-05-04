@@ -57,16 +57,16 @@ namespace Penguin.Cms.Web.Mvc
                     return;
                 }
 
-                services.Configure<CookiePolicyOptions>(options =>
+                _ = services.Configure<CookiePolicyOptions>(options =>
                 {
                     // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                     options.CheckConsentNeeded = context => false;
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 });
 
-                services.Configure<RouteOptions>(options => options.ConstraintMap.Add("notexists", typeof(NotKnownRouteValueConstraint)));
+                _ = services.Configure<RouteOptions>(options => options.ConstraintMap.Add("notexists", typeof(NotKnownRouteValueConstraint)));
 
-                services.AddSession(options =>
+                _ = services.AddSession(options =>
                 {
                     options.IdleTimeout = TimeSpan.FromSeconds(2400);
                     options.Cookie.HttpOnly = true;
@@ -78,11 +78,11 @@ namespace Penguin.Cms.Web.Mvc
                        .ConfigureApplicationPartManager(RCLViews.Include)
                        .IncludeRCLControllers();
 
-                services.ConfigureOptions(typeof(RCLStaticFiles));
+                _ = services.ConfigureOptions(typeof(RCLStaticFiles));
 
-                services.AddSingleton<IFileProvider>((ServiceProvider) => new CompositeFileProvider(RCLStaticFiles.FileProvider, new RCLViews()));
+                _ = services.AddSingleton<IFileProvider>((ServiceProvider) => new CompositeFileProvider(RCLStaticFiles.FileProvider, new RCLViews()));
 
-                TypeFactory.GetTypeByFullName("Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions")
+                _ = TypeFactory.GetTypeByFullName("Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions")
                            .GetMethods().Single(m => m.Name == "AddControllersWithViews" && m.GetParameters().Length == 1)
                            .Invoke(null, new object[] { services });
 
@@ -97,10 +97,10 @@ namespace Penguin.Cms.Web.Mvc
                     throw new NullReferenceException("The package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation is not installed or is not being copied to the output directory");
                 }
 
-                runtimeCompilation.GetMethods().Single(m => m.Name == "AddRazorRuntimeCompilation" && m.GetParameters().Length == 1)
+                _ = runtimeCompilation.GetMethods().Single(m => m.Name == "AddRazorRuntimeCompilation" && m.GetParameters().Length == 1)
                    .Invoke(null, new object[] { builder });
 
-                services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+                _ = services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             }
             catch (Exception ex)
             {

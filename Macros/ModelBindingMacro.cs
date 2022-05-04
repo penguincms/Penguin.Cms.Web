@@ -54,7 +54,7 @@ namespace Penguin.Cms.Web.Macros
                     {
                         overflowCheckHack.Push((cPropertyName, cType));
                         this.Children.Add(new ModelBindingMacro(cPropertyName, cType, path + "." + propertyName, overflowCheckHack));
-                        overflowCheckHack.Pop();
+                        _ = overflowCheckHack.Pop();
                     }
                 }
             }

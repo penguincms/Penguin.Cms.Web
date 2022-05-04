@@ -35,7 +35,7 @@ namespace Penguin.Cms.Web.Mvc
                 File.WriteAllText(EntryPath, "{ }");
             }
 
-            builder.SetBasePath(BasePath)
+            _ = builder.SetBasePath(BasePath)
                 .AddJsonFile(ApplicationConfig, optional: true, reloadOnChange: true)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile(environmentSettings, optional: true, reloadOnChange: true)
@@ -63,7 +63,7 @@ namespace Penguin.Cms.Web.Mvc
             {
                 Console.WriteLine($"Args found: {string.Join(" ", args)}");
 
-                config.AddCommandLine(args);
+                _ = config.AddCommandLine(args);
             }
             else
             {

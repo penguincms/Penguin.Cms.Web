@@ -31,7 +31,10 @@ namespace Penguin.Cms.Web.Extensions
             }
         }
 
-        public static T Max<T>(T a, T b) => Comparer<T>.Default.Compare(a, b) >= 0 ? a : b;
+        public static T Max<T>(T a, T b)
+        {
+            return Comparer<T>.Default.Compare(a, b) >= 0 ? a : b;
+        }
 
         public static T MaxValue<T>(this IMetaProperty p, T Default)
         {
@@ -87,7 +90,10 @@ namespace Penguin.Cms.Web.Extensions
             throw new System.Exception("Somehow we failed to find a non-null max value for the requested type");
         }
 
-        public static T Min<T>(T a, T b) => Comparer<T>.Default.Compare(a, b) >= 0 ? b : a;
+        public static T Min<T>(T a, T b)
+        {
+            return Comparer<T>.Default.Compare(a, b) >= 0 ? b : a;
+        }
 
         public static T MinValue<T>(this IMetaProperty p, T Default)
         {

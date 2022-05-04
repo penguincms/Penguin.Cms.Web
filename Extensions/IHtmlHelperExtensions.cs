@@ -34,26 +34,38 @@ namespace Penguin.Cms.Web.Extensions
         public static Func<IHtmlContent> Helper(
           this RazorPageBase page,
           Func<Func<object, IHtmlContent>> helper
-        ) => () => helper()(null!);
+        )
+        {
+            return () => helper()(null!);
+        }
 
         [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         public static Func<T1, IHtmlContent> Helper<T1>(
           this RazorPageBase page,
           Func<T1, Func<object, IHtmlContent>> helper
-        ) => p1 => helper(p1)(null!);
+        )
+        {
+            return p1 => helper(p1)(null!);
+        }
 
         [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         public static Func<T1, T2, IHtmlContent> Helper<T1, T2>(
           this RazorPageBase page,
           Func<T1, T2, Func<object, IHtmlContent>> helper
-        ) => (p1, p2) => helper(p1, p2)(null!);
+        )
+        {
+            return (p1, p2) => helper(p1, p2)(null!);
+        }
 
         [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         public static Func<T1, T2, T3, IHtmlContent> Helper<T1, T2, T3>(
           this RazorPageBase page,
           Func<T1, T2, T3, Func<object, IHtmlContent>> helper
 
-        ) => (p1, p2, p3) => helper(p1, p2, p3)(null!);
+        )
+        {
+            return (p1, p2, p3) => helper(p1, p2, p3)(null!);
+        }
 
         public static void AddResource(this IHtmlHelper helper, string resourceString)
         {
@@ -156,7 +168,10 @@ namespace Penguin.Cms.Web.Extensions
         }
 
         [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-        public static HtmlString MaterialIcon(this IHtmlHelper helper, string name) => new HtmlString($"<i class=\"material-icons md-24\" icon-name=\"{name}\">{name}</i>");
+        public static HtmlString MaterialIcon(this IHtmlHelper helper, string name)
+        {
+            return new HtmlString($"<i class=\"material-icons md-24\" icon-name=\"{name}\">{name}</i>");
+        }
 
         [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         public static HtmlString MaterialIcon(this IHtmlHelper helper, string name, Dictionary<string, string> attributes)
@@ -301,7 +316,7 @@ namespace Penguin.Cms.Web.Extensions
 
             newHttpContext.Response.Body = new MemoryStream();
 
-            routeData.PushState(null, routeValues, null);
+            _ = routeData.PushState(null, routeValues, null);
 
             Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor actionDescriptor = actionSelector.ActionDescriptors.Items.First(i => i.RouteValues["Controller"] == controller && i.RouteValues["Action"] == action);
 
@@ -447,9 +462,15 @@ namespace Penguin.Cms.Web.Extensions
             return helper.GetFileService().Exists(Path.Combine("wwwroot", url));
         }
 
-        private static JavascriptTag GenerateJsTag(this IHtmlHelper helper, string filename) => new JavascriptTag(filename, helper);
+        private static JavascriptTag GenerateJsTag(this IHtmlHelper helper, string filename)
+        {
+            return new JavascriptTag(filename, helper);
+        }
 
-        private static CssTag GenerateCssTag(this IHtmlHelper helper, string filename) => new CssTag(filename, helper);
+        private static CssTag GenerateCssTag(this IHtmlHelper helper, string filename)
+        {
+            return new CssTag(filename, helper);
+        }
 
         /// <summary>
         /// Adds javascript files to the cache to be rendered with RenderIncludes in the master

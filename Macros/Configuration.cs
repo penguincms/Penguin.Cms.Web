@@ -1,7 +1,7 @@
 ﻿using Penguin.Cms.Abstractions;
 using Penguin.Cms.Abstractions.Interfaces;
 using Penguin.Configuration.Abstractions.Interfaces;
-using Penguin.Extensions.Strings;
+using Penguin.Extensions.String;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
