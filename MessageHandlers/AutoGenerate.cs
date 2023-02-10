@@ -16,6 +16,7 @@ namespace Penguin.Cms.Web.MessageHandlers
         public const string ROOTNS = ".Database.Generate.";
         public const string STOREDPROCEDUREFOLDER = "StoredProcedures";
         private const string UNSUPPORTED_SQL_TYPE_MESSAGE = "Unsupported SQL type";
+
         protected IProvideConfigurations ConfigurationService { get; set; }
 
         public AutoGenerate(IProvideConfigurations configurationService)

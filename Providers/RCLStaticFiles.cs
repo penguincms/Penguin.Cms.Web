@@ -14,6 +14,7 @@ namespace Penguin.Cms.Web.Providers
     public class RCLStaticFiles : IPostConfigureOptions<StaticFileOptions>
     {
         private readonly IHostingEnvironment _environment;
+
         public static IFileProvider? FileProvider { get; set; }
 
         public RCLStaticFiles(IHostingEnvironment environment)

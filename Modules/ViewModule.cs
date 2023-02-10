@@ -5,9 +5,11 @@ namespace Penguin.Cms.Web.Modules
     public class ViewModule : IViewModule<object>
     {
         public string Id => Name.Replace(" ", "_");
+
         public object Model { get; }
 
         public string Name { get; }
+
         public string ViewPath { get; }
 
         public ViewModule(string viewPath, object model, string name)

@@ -15,6 +15,7 @@ namespace Penguin.Cms.Web.Extensions
     public class ContextHelper
     {
         private const string KEY_NOT_FOUND_MESSAGE = "Key not found. Logic might need to be added to find a key based on attribute";
+
         protected IServiceProvider ServiceProvider { get; set; }
 
         public ContextHelper(IServiceProvider serviceProvider)

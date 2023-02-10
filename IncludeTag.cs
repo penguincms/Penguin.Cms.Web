@@ -8,8 +8,11 @@ namespace Penguin.Cms.Web
     public abstract class IncludeTag
     {
         protected string Url { get; private set; }
+
         protected IHtmlHelper Helper { get; private set; }
+
         protected string Version { get; private set; }
+
         public bool Exists => Helper.UrlExists(Url);
 
         protected IncludeTag(string path, IHtmlHelper helper, string extension, string? version = null)

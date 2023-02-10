@@ -12,10 +12,13 @@ namespace Penguin.Cms.Web.Macros
     public class ModelBindingMacro : ITemplateProperty
     {
         public IList<ITemplateProperty> Children { get; }
+
         public string DisplayName { get; set; }
 
         public string MacroBody => "@(Model" + Path + "." + DisplayName + ")";
+
         public string Path { get; set; }
+
         IEnumerable<ITemplateProperty> ITemplateProperty.Children => Children;
 
         public ModelBindingMacro(string propertyName, Type type, string path = "", Stack<(string propertyName, Type type)>? overflowCheckHack = null)

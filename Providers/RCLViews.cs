@@ -16,6 +16,7 @@ namespace Penguin.Cms.Web.Providers
     public class RazorDirectoryContents : IDirectoryContents
     {
         public bool Exists { get; set; }
+
         public List<RazorFileInfo> RazorFileInfo { get; set; } = new List<RazorFileInfo>();
 
         public IEnumerator<IFileInfo> GetEnumerator()
@@ -34,10 +35,13 @@ namespace Penguin.Cms.Web.Providers
         public bool Exists { get; set; }
 
         public bool IsDirectory { get; set; }
+
         public DateTimeOffset LastModified { get; set; }
+
         public long Length => 0;
 
         public string? Name { get; set; }
+
         public string? PhysicalPath { get; set; }
 
         public Stream CreateReadStream()
