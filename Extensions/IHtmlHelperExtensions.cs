@@ -74,7 +74,7 @@ namespace Penguin.Cms.Web.Extensions
                 throw new ArgumentNullException(nameof(helper));
             }
 
-            if (!(helper.ViewContext.HttpContext.Items[RENDERS] is List<string> resourceManager))
+            if (helper.ViewContext.HttpContext.Items[RENDERS] is not List<string> resourceManager)
             {
                 resourceManager = new List<string>();
                 helper.ViewContext.HttpContext.Items.Add(RENDERS, resourceManager);
@@ -242,14 +242,7 @@ namespace Penguin.Cms.Web.Extensions
                 //If the action we're sending this too doesn't accept a MetaObject then it
                 //Likely accepts the real value type the object was created from so we cast it back
                 //If that doesn't work then theres something wrong with the way everything is tagged
-                if (!TargetParameter.IsAssignableFrom(toRender.GetType()))
-                {
-                    model = toRender.GetValue(TargetParameter);
-                }
-                else
-                {
-                    model = toRender;
-                }
+                model = !TargetParameter.IsAssignableFrom(toRender.GetType()) ? toRender.GetValue(TargetParameter) : toRender;
             }
 
             return helper.Action(ActionName, ControllerName, AreaName, new object?[] { model });
@@ -276,12 +269,9 @@ namespace Penguin.Cms.Web.Extensions
 
         public static async Task<IHtmlContent> RenderActionAsync(this IHtmlHelper helper, string action, string controller, string area, object?[]? parameters = null)
         {
-            if (helper is null)
-            {
-                throw new ArgumentNullException(nameof(helper));
-            }
-
-            return await helper.ViewContext.HttpContext.RenderActionAsync(action, controller, area, parameters, helper.ViewContext).ConfigureAwait(true);
+            return helper is null
+                ? throw new ArgumentNullException(nameof(helper))
+                : await helper.ViewContext.HttpContext.RenderActionAsync(action, controller, area, parameters, helper.ViewContext).ConfigureAwait(true);
         }
 
         public static async Task<IHtmlContent> RenderActionAsync(this HttpContext context, string action, string controller, string area, object?[]? parameters = null, ViewContext? existingViewContext = null)
@@ -308,9 +298,9 @@ namespace Penguin.Cms.Web.Extensions
             IActionDescriptorCollectionProvider actionSelector = GetServiceOrFail<IActionDescriptorCollectionProvider>(newHttpContext);
 
             // creating new action invocation context
-            RouteData routeData = new RouteData();
+            RouteData routeData = new();
 
-            RouteValueDictionary routeValues = new RouteValueDictionary(new { area, controller, action });
+            RouteValueDictionary routeValues = new(new { area, controller, action });
 
             IRazorViewEngine ViewEngine = GetServiceOrFail<IRazorViewEngine>(newHttpContext);
 
@@ -320,7 +310,7 @@ namespace Penguin.Cms.Web.Extensions
 
             Microsoft.AspNetCore.Mvc.Abstractions.ActionDescriptor actionDescriptor = actionSelector.ActionDescriptors.Items.First(i => i.RouteValues["Controller"] == controller && i.RouteValues["Action"] == action);
 
-            ActionContext actionContext = new ActionContext(newHttpContext, routeData, actionDescriptor);
+            ActionContext actionContext = new(newHttpContext, routeData, actionDescriptor);
 
             //We're not invoking this using an invoker beacause it doesn't support as many object types as parameters.
             IControllerFactory cf = GetServiceOrFail<IControllerFactory>(newHttpContext);
@@ -336,32 +326,24 @@ namespace Penguin.Cms.Web.Extensions
 
             string htmlContent = string.Empty;
 
-            using (StringWriter output = new StringWriter())
+            using (StringWriter output = new())
             {
-                HtmlHelperOptions options;
-
-                if (existingViewContext != null)
-                {
-                    options = new HtmlHelperOptions()
+                HtmlHelperOptions options = existingViewContext != null
+                    ? new HtmlHelperOptions()
                     {
                         ClientValidationEnabled = existingViewContext.ClientValidationEnabled,
                         Html5DateRenderingMode = existingViewContext.Html5DateRenderingMode,
                         ValidationSummaryMessageElement = existingViewContext.ValidationSummaryMessageElement,
                         ValidationMessageElement = existingViewContext.ValidationMessageElement
-                    };
-                }
-                else
-                {
-                    options = new HtmlHelperOptions()
+                    }
+                    : new HtmlHelperOptions()
                     {
                         ClientValidationEnabled = true,
                         Html5DateRenderingMode = Html5DateRenderingMode.CurrentCulture,
                         ValidationSummaryMessageElement = "validation-summary-errors",
                         ValidationMessageElement = "validation-summary-messages"
                     };
-                }
-
-                ViewContext viewcontext = new ViewContext(actionContext, result.View, viewResult?.ViewData, viewResult?.TempData, output, options);
+                ViewContext viewcontext = new(actionContext, result.View, viewResult?.ViewData, viewResult?.TempData, output, options);
 
                 await result.View.RenderAsync(viewcontext).ConfigureAwait(false);
 
@@ -380,12 +362,7 @@ namespace Penguin.Cms.Web.Extensions
 
             object service = httpContext.RequestServices.GetService(typeof(TService));
 
-            if (service == null)
-            {
-                throw new InvalidOperationException($"Could not locate service: {nameof(TService)}");
-            }
-
-            return (TService)service;
+            return service == null ? throw new InvalidOperationException($"Could not locate service: {nameof(TService)}") : (TService)service;
         }
 
         /// <summary>
@@ -396,7 +373,7 @@ namespace Penguin.Cms.Web.Extensions
         /// <returns>A string representation of the body of the rendered partial</returns>
         public static string PartialToString(this IHtmlHelper helper, string partialName)
         {
-            using StringWriter writer = new System.IO.StringWriter();
+            using StringWriter writer = new();
 #pragma warning disable MVC1000 // Use of IHtmlHelper.{0} should be avoided.
             helper.Partial(partialName).WriteTo(writer, HtmlEncoder.Default);
 #pragma warning restore MVC1000 // Use of IHtmlHelper.{0} should be avoided.
@@ -430,18 +407,15 @@ namespace Penguin.Cms.Web.Extensions
         }
 
         /// <summary>
-        /// Returns a registered instance of a FileService 
+        /// Returns a registered instance of a FileService
         /// </summary>
         /// <param name="helper">The current HtmlHelper from the calling context</param>
         /// <returns>A registered instance of a FileService </returns>
         public static FileService GetFileService(this IHtmlHelper helper)
         {
-            if (helper is null)
-            {
-                throw new ArgumentNullException(nameof(helper));
-            }
-
-            return helper.ViewContext.HttpContext.RequestServices.GetService<FileService>();
+            return helper is null
+                ? throw new ArgumentNullException(nameof(helper))
+                : helper.ViewContext.HttpContext.RequestServices.GetService<FileService>();
         }
 
         private const string URL_EMPTY_MESSAGE = "Url can not be null or whitespace";
@@ -454,12 +428,9 @@ namespace Penguin.Cms.Web.Extensions
         /// <returns>True if the resource exists in the registered FileService</returns>
         public static bool UrlExists(this IHtmlHelper helper, string url)
         {
-            if (string.IsNullOrWhiteSpace(url))
-            {
-                throw new ArgumentException(URL_EMPTY_MESSAGE, nameof(url));
-            }
-
-            return helper.GetFileService().Exists(Path.Combine("wwwroot", url));
+            return string.IsNullOrWhiteSpace(url)
+                ? throw new ArgumentException(URL_EMPTY_MESSAGE, nameof(url))
+                : helper.GetFileService().Exists(Path.Combine("wwwroot", url));
         }
 
         private static JavascriptTag GenerateJsTag(this IHtmlHelper helper, string filename)
@@ -479,7 +450,6 @@ namespace Penguin.Cms.Web.Extensions
         /// <param name="fileNames">The javascript file name relative to /js or absolute</param>
         public static void IncludeJS(this IHtmlHelper helper, params string[] fileNames)
         {
-
             foreach (string resourceName in fileNames.Reverse())
             {
                 JavascriptTag tag = helper.GenerateJsTag(resourceName);

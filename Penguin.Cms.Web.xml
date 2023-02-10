@@ -40,6 +40,7 @@
             <summary>
             Checks if a file exists on disk. This is here because IO on the disk is VERY slow
             </summary>
+            <param name="fileService"></param>
             <param name="Uri"></param>
             <returns></returns>
         </member>
@@ -67,7 +68,7 @@
         </member>
         <member name="M:Penguin.Cms.Web.Extensions.IHtmlHelperExtensions.GetFileService(Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper)">
             <summary>
-            Returns a registered instance of a FileService 
+            Returns a registered instance of a FileService
             </summary>
             <param name="helper">The current HtmlHelper from the calling context</param>
             <returns>A registered instance of a FileService </returns>

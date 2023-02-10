@@ -19,7 +19,7 @@ namespace Penguin.Cms.Web.Extensions
 
         public ContextHelper(IServiceProvider serviceProvider)
         {
-            this.ServiceProvider = serviceProvider;
+            ServiceProvider = serviceProvider;
         }
 
         [SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms")]
@@ -74,17 +74,11 @@ namespace Penguin.Cms.Web.Extensions
             {
                 return typeof(KeyedObject).GetProperty(nameof(KeyedObject._Id));
             }
-            else if (t.GetProperties().Any(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase)))
-            {
-                return t.GetProperties().First(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase));
-            }
-            else if (throwError)
-            {
-                throw new Exception(KEY_NOT_FOUND_MESSAGE);
-            }
             else
             {
-                return null;
+                return t.GetProperties().Any(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase))
+                    ? t.GetProperties().First(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase))
+                    : throwError ? throw new Exception(KEY_NOT_FOUND_MESSAGE) : null;
             }
         }
 
@@ -93,19 +87,11 @@ namespace Penguin.Cms.Web.Extensions
         //for the type object itself, which its not. It wouldn't be hard but this is a quick fix
         public static string? GetKeyForType(IMetaObject o, bool throwError = true)
         {
-            if (o is null)
-            {
-                throw new ArgumentNullException(nameof(o));
-            }
-
-            if (o.Properties != null && o.Properties.Any(p => p.Property.HasAttribute<KeyAttribute>()))
-            {
-                return o.Properties.First(p => p.Property.HasAttribute<KeyAttribute>()).Property.Name;
-            }
-            else
-            {
-                return GetKeyForType(o.Type, throwError);
-            }
+            return o is null
+                ? throw new ArgumentNullException(nameof(o))
+                : o.Properties != null && o.Properties.Any(p => p.Property.HasAttribute<KeyAttribute>())
+                ? o.Properties.First(p => p.Property.HasAttribute<KeyAttribute>()).Property.Name
+                : GetKeyForType(o.Type, throwError);
         }
 
         public static string? GetKeyForType(IMetaType t, bool throwError = true)
@@ -119,30 +105,17 @@ namespace Penguin.Cms.Web.Extensions
             {
                 return nameof(KeyedObject._Id);
             }
-            else if (t.Properties.Any(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase)))
-            {
-                return t.Properties.First(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase)).Name;
-            }
-            else if (throwError)
-            {
-                throw new Exception(KEY_NOT_FOUND_MESSAGE);
-            }
             else
             {
-                return null;
+                return t.Properties.Any(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase))
+                    ? t.Properties.First(p => string.Equals(p.Name, "id", StringComparison.OrdinalIgnoreCase)).Name
+                    : throwError ? throw new Exception(KEY_NOT_FOUND_MESSAGE) : null;
             }
         }
 
         public static bool IsKey(IMetaObject o)
         {
-            if (o?.Parent is IMetaObject parent)
-            {
-                return o.Property.Name == GetKeyForType(parent, false);
-            }
-            else
-            {
-                return false;
-            }
+            return o?.Parent is IMetaObject parent && o.Property.Name == GetKeyForType(parent, false);
         }
     }
 }

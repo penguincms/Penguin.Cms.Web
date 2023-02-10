@@ -11,20 +11,19 @@ using System.Reflection;
 
 namespace Penguin.Cms.Web.MessageHandlers
 {
-
     public class AutoGenerate : IMessageHandler<Startup>
     {
-        public const string ROOT_NS = ".Database.Generate.";
-        public const string STORED_PROCEDURE_FOLDER = "StoredProcedures";
+        public const string ROOTNS = ".Database.Generate.";
+        public const string STOREDPROCEDUREFOLDER = "StoredProcedures";
         private const string UNSUPPORTED_SQL_TYPE_MESSAGE = "Unsupported SQL type";
         protected IProvideConfigurations ConfigurationService { get; set; }
 
         public AutoGenerate(IProvideConfigurations configurationService)
         {
-            this.ConfigurationService = configurationService;
+            ConfigurationService = configurationService;
         }
 
-        public void AcceptMessage(Startup bootMessage)
+        public void AcceptMessage(Startup message)
         {
             foreach (Assembly thisAssembly in AppDomain.CurrentDomain.GetAssemblies())
             {
@@ -35,11 +34,11 @@ namespace Penguin.Cms.Web.MessageHandlers
 
                 foreach (string Resource in thisAssembly.GetManifestResourceNames())
                 {
-                    if (Resource.Contains(ROOT_NS, StringComparison.Ordinal))
+                    if (Resource.Contains(ROOTNS, StringComparison.Ordinal))
                     {
-                        if (Resource.From(ROOT_NS).To(".") == STORED_PROCEDURE_FOLDER)
+                        if (Resource.From(ROOTNS).To(".") == STOREDPROCEDUREFOLDER)
                         {
-                            string NameSpace = Resource.From(ROOT_NS + STORED_PROCEDURE_FOLDER + ".");
+                            string NameSpace = Resource.From(ROOTNS + STOREDPROCEDUREFOLDER + ".");
 
                             string Script = string.Empty;
 
@@ -50,11 +49,11 @@ namespace Penguin.Cms.Web.MessageHandlers
                                     throw new NullReferenceException($"Manifest stream not found for resource {Resource}");
                                 }
 
-                                using StreamReader reader = new StreamReader(stream);
+                                using StreamReader reader = new(stream);
                                 Script = reader.ReadToEnd();
                             }
 
-                            StoredProcedure thisProc = new StoredProcedure(Script);
+                            StoredProcedure thisProc = new(Script);
 
                             //Get the name after the room, trim the extention and then the proc name;
 
@@ -72,12 +71,12 @@ namespace Penguin.Cms.Web.MessageHandlers
 
                             foreach (string ConnectionString in thisProc.ConnectionStrings)
                             {
-                                string connectionString = this.ConfigurationService.GetConnectionString(ConnectionString);
+                                string connectionString = ConfigurationService.GetConnectionString(ConnectionString);
 
                                 //Cheap SDF hack. Should be fixed
                                 if (!string.IsNullOrWhiteSpace(connectionString) && !connectionString.Contains(".sdf", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    DatabaseInstance di = new DatabaseInstance(connectionString);
+                                    DatabaseInstance di = new(connectionString);
 
                                     di.ImportProcedure(thisProc);
                                 }

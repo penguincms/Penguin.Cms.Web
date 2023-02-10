@@ -10,7 +10,7 @@ namespace Penguin.Cms.Web.Mvc
 
         public StartupException(Exception exception)
         {
-            this.Exception = exception;
+            Exception = exception;
         }
     }
 }

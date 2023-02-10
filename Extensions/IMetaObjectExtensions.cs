@@ -45,12 +45,7 @@ namespace Penguin.Cms.Web.Extensions
 
         public static bool IsRoot(this IMetaObject o)
         {
-            if (o is null)
-            {
-                throw new ArgumentNullException(nameof(o));
-            }
-
-            return o.Parent is null;
+            return o is null ? throw new ArgumentNullException(nameof(o)) : o.Parent is null;
         }
     }
 }

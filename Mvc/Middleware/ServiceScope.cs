@@ -11,7 +11,7 @@ namespace Penguin.Cms.Web.Mvc.Middleware
 
         public ServiceScope(RequestDelegate next)
         {
-            this._next = next;
+            _next = next;
         }
 
         public async Task Invoke(HttpContext context)
@@ -21,11 +21,11 @@ namespace Penguin.Cms.Web.Mvc.Middleware
                 throw new System.ArgumentNullException(nameof(context));
             }
 
-            using PerRequestServiceScope ServiceScope = new PerRequestServiceScope();
+            using PerRequestServiceScope ServiceScope = new();
             ServiceScope.RequestProvider.Add(context);
             context.RequestServices = ServiceScope.ServiceProvider;
 
-            await this._next(context);
+            await _next(context);
         }
     }
 }

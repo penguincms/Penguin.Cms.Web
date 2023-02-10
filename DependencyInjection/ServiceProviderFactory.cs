@@ -78,7 +78,7 @@ namespace Penguin.Cms.Web.DependencyInjection
         /// <returns>A new scoped service provider</returns>
         public IServiceProvider CreateServiceProvider(ContainerBuilder containerBuilder)
         {
-            using ScopedServiceScope scoped = new ScopedServiceScope();
+            using ScopedServiceScope scoped = new();
             return scoped.ServiceProvider;
         }
     }

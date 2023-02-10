@@ -14,11 +14,11 @@ namespace Penguin.Cms.Web.Providers
     public class RCLStaticFiles : IPostConfigureOptions<StaticFileOptions>
     {
         private readonly IHostingEnvironment _environment;
-        public static IFileProvider FileProvider { get; set; }
+        public static IFileProvider? FileProvider { get; set; }
 
         public RCLStaticFiles(IHostingEnvironment environment)
         {
-            this._environment = environment;
+            _environment = environment;
         }
 
         public void PostConfigure(string name, StaticFileOptions options)
@@ -30,14 +30,14 @@ namespace Penguin.Cms.Web.Providers
             // Basic initialization in case the options weren't initialized by any other component
             options.ContentTypeProvider ??= new FileExtensionContentTypeProvider();
 
-            if (options.FileProvider == null && this._environment.WebRootFileProvider == null)
+            if (options.FileProvider == null && _environment.WebRootFileProvider == null)
             {
                 throw new InvalidOperationException("Missing FileProvider.");
             }
 
-            options.FileProvider ??= this._environment.WebRootFileProvider;
+            options.FileProvider ??= _environment.WebRootFileProvider;
 
-            List<IFileProvider> providers = new List<IFileProvider>()
+            List<IFileProvider> providers = new()
             {
                 options.FileProvider
             };

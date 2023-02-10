@@ -7,17 +7,9 @@ namespace Penguin.Cms.Web.Mvc.ModelBinders
     {
         public IModelBinder? GetBinder(ModelBinderProviderContext context)
         {
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
-
-            if (context.Metadata.IsFlagsEnum)
-            {
-                return new FlagsEnumModelBinder();
-            }
-
-            return null;
+            return context == null
+                ? throw new ArgumentNullException(nameof(context))
+                : context.Metadata.IsFlagsEnum ? new FlagsEnumModelBinder() : (IModelBinder?)null;
         }
     }
 }

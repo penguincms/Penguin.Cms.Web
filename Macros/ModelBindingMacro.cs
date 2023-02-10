@@ -9,15 +9,14 @@ using System.Reflection;
 
 namespace Penguin.Cms.Web.Macros
 {
-
     public class ModelBindingMacro : ITemplateProperty
     {
         public IList<ITemplateProperty> Children { get; }
         public string DisplayName { get; set; }
 
-        public string MacroBody => "@(Model" + this.Path + "." + this.DisplayName + ")";
+        public string MacroBody => "@(Model" + Path + "." + DisplayName + ")";
         public string Path { get; set; }
-        IEnumerable<ITemplateProperty> ITemplateProperty.Children => this.Children;
+        IEnumerable<ITemplateProperty> ITemplateProperty.Children => Children;
 
         public ModelBindingMacro(string propertyName, Type type, string path = "", Stack<(string propertyName, Type type)>? overflowCheckHack = null)
         {
@@ -33,10 +32,10 @@ namespace Penguin.Cms.Web.Macros
                 throw new Exception("What the fuck?");
             }
 
-            this.Children = new List<ITemplateProperty>();
+            Children = new List<ITemplateProperty>();
 
-            this.DisplayName = propertyName;
-            this.Path = path;
+            DisplayName = propertyName;
+            Path = path;
 
             if (type.GetCoreType() == CoreType.Reference)
             {
@@ -53,7 +52,7 @@ namespace Penguin.Cms.Web.Macros
                     if (!childProperty.GetCustomAttribute<DontAllowAttribute>()?.Context.HasFlag(DisplayContexts.TemplateBinding) ?? true)
                     {
                         overflowCheckHack.Push((cPropertyName, cType));
-                        this.Children.Add(new ModelBindingMacro(cPropertyName, cType, path + "." + propertyName, overflowCheckHack));
+                        Children.Add(new ModelBindingMacro(cPropertyName, cType, path + "." + propertyName, overflowCheckHack));
                         _ = overflowCheckHack.Pop();
                     }
                 }
@@ -63,9 +62,9 @@ namespace Penguin.Cms.Web.Macros
                 string cPropertyName = propertyName;
                 Type cType = type.GetCollectionType();
 
-                ModelBindingMacro replacement = new ModelBindingMacro(cPropertyName, cType, path, overflowCheckHack);
+                ModelBindingMacro replacement = new(cPropertyName, cType, path, overflowCheckHack);
 
-                this.Children = replacement.Children;
+                Children = replacement.Children;
             }
         }
     }

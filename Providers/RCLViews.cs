@@ -20,12 +20,12 @@ namespace Penguin.Cms.Web.Providers
 
         public IEnumerator<IFileInfo> GetEnumerator()
         {
-            return this.RazorFileInfo.GetEnumerator();
+            return RazorFileInfo.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.RazorFileInfo.GetEnumerator();
+            return RazorFileInfo.GetEnumerator();
         }
     }
 
@@ -37,8 +37,8 @@ namespace Penguin.Cms.Web.Providers
         public DateTimeOffset LastModified { get; set; }
         public long Length => 0;
 
-        public string Name { get; set; }
-        public string PhysicalPath { get; set; }
+        public string? Name { get; set; }
+        public string? PhysicalPath { get; set; }
 
         public Stream CreateReadStream()
         {
@@ -85,7 +85,7 @@ namespace Penguin.Cms.Web.Providers
 
             string PathToCheck = CleanPath(subpath, true);
 
-            RazorDirectoryContents directoryContents = new RazorDirectoryContents();
+            RazorDirectoryContents directoryContents = new();
 
             if (RazorViews.Any(r => r.Identifier.StartsWith(PathToCheck)))
             {
@@ -99,7 +99,7 @@ namespace Penguin.Cms.Web.Providers
 
                     if (!directoryContents.Any(r => r.Name == Name))
                     {
-                        RazorFileInfo fileInfo = new RazorFileInfo
+                        RazorFileInfo fileInfo = new()
                         {
                             Exists = true,
                             IsDirectory = Directory,
@@ -125,7 +125,7 @@ namespace Penguin.Cms.Web.Providers
 
             string PathToCheck = CleanPath(subpath);
 
-            RazorFileInfo fileInfo = new RazorFileInfo();
+            RazorFileInfo fileInfo = new();
 
             RazorCompiledItemAttribute rca = RazorViews.FirstOrDefault(rcal => rcal.Identifier == PathToCheck);
 
@@ -134,7 +134,7 @@ namespace Penguin.Cms.Web.Providers
             if (rca != null)
             {
                 string LocalPath = rca.Identifier.From(PathToCheck);
-                bool Directory = LocalPath.Contains("/");
+                bool Directory = LocalPath.Contains('/');
                 string Name = LocalPath.To("/");
 
                 fileInfo.IsDirectory = Directory;

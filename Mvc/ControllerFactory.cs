@@ -19,7 +19,7 @@ namespace Penguin.Cms.Web.Mvc
         {
             area ??= "";
 
-            List<Type> MatchingControllers = new List<Type>();
+            List<Type> MatchingControllers = new();
 
             foreach (Type t in TypeFactory.GetDerivedTypes(typeof(Controller)))
             {

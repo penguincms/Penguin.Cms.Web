@@ -37,14 +37,14 @@ namespace Penguin.Cms.Web.Mvc
 
         public Startup(IConfiguration configuration)
         {
-            this.Configuration = configuration;
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
         public static bool PersistenceConfigured { get; set; }
 
-        private static readonly object BootLock = new object();
+        private static readonly object BootLock = new();
 
         // This method gets called by the runtime. Use this method to add services to the container.
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
@@ -113,7 +113,7 @@ namespace Penguin.Cms.Web.Mvc
         {
             try
             {
-                foreach (JsonConfigurationProvider jscp in ((IConfigurationRoot)this.Configuration).Providers.OfType<JsonConfigurationProvider>())
+                foreach (JsonConfigurationProvider jscp in ((IConfigurationRoot)Configuration).Providers.OfType<JsonConfigurationProvider>())
                 {
                     StaticLogger.Log($"Configuration Loaded: {jscp.Source.Path}", StaticLogger.LoggingLevel.Call);
                 }
@@ -151,7 +151,7 @@ namespace Penguin.Cms.Web.Mvc
                 app.UseWhen(context => !PersistenceConfigured, appBuilder => appBuilder.UseMiddleware<ConfigurePersistenceMiddleware>());
 
                 IProvideConfigurations provideConnectionStrings = new ConfigurationProviderList(
-                        new JsonProvider(this.Configuration)
+                        new JsonProvider(Configuration)
                 );
 
                 DependencyEngine.Register((serviceProvider) => provideConnectionStrings);

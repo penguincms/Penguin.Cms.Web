@@ -21,14 +21,7 @@ namespace Penguin.Cms.Web.Extensions
 
             string display = property.AttributeRef<DisplayAttribute, string>(nameof(DisplayAttribute.Name));
 
-            if (string.IsNullOrWhiteSpace(display))
-            {
-                return property.Name;
-            }
-            else
-            {
-                return display;
-            }
+            return string.IsNullOrWhiteSpace(display) ? property.Name : display;
         }
 
         public static T Max<T>(T a, T b)

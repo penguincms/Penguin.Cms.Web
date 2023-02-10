@@ -17,7 +17,7 @@ namespace Penguin.Cms.Web.Mvc.Middleware
         /// <param name="next">The RequestDelegate</param>
         public ConfigurePersistenceMiddleware(RequestDelegate next)
         {
-            this._next = next;
+            _next = next;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Penguin.Cms.Web.Mvc.Middleware
 
             if (context.Request.Path.ToString().StartsWith(SetupUrl, System.StringComparison.OrdinalIgnoreCase))
             {
-                await this._next(context);
+                await _next(context);
             }
             else
             {

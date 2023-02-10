@@ -15,7 +15,7 @@ namespace Penguin.Cms.Web.Mvc.Razor
             //Replace folder view with CustomViews
             //return viewLocations.Select(f => f.Replace("/Views/", "/CustomViews/"));
 
-            List<string> expandedViewLocations = new List<string>();
+            List<string> expandedViewLocations = new();
 
             foreach (string viewLocation in viewLocations)
             {
