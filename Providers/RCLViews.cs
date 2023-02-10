@@ -94,7 +94,7 @@ namespace Penguin.Cms.Web.Providers
                 foreach (RazorCompiledItemAttribute a in RazorViews.Where(rca => rca.Identifier.StartsWith(PathToCheck)))
                 {
                     string LocalPath = a.Identifier.From(PathToCheck);
-                    bool Directory = LocalPath.Contains("/");
+                    bool Directory = LocalPath.Contains('/');
                     string Name = LocalPath.To("/");
 
                     if (!directoryContents.Any(r => r.Name == Name))

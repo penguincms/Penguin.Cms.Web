@@ -12,7 +12,7 @@ namespace Penguin.Cms.Web
         protected string Version { get; private set; }
         public bool Exists => this.Helper.UrlExists(this.Url);
 
-        public IncludeTag(string path, IHtmlHelper helper, string extension, string? version = null)
+        protected IncludeTag(string path, IHtmlHelper helper, string extension, string? version = null)
         {
             if (string.IsNullOrWhiteSpace(path))
             {

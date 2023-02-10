@@ -4,6 +4,11 @@
         <name>Penguin.Cms.Web</name>
     </assembly>
     <members>
+        <member name="T:Penguin.Cms.Web.Constants.Strings.MaterialIcons">
+            <summary>
+            https://material.io/tools/icons/?style=baseline
+            </summary>
+        </member>
         <member name="T:Penguin.Cms.Web.DependencyInjection.ServiceProviderFactory">
             <summary>
             A service provider factory that creates a new scoped Penguin DependencyInjector instance and
