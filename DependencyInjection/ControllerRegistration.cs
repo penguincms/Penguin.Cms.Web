@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Loxifi;
+using Microsoft.AspNetCore.Mvc;
 using Penguin.DependencyInjection.Abstractions.Enums;
 using Penguin.DependencyInjection.Abstractions.Interfaces;
 using Penguin.Reflection;
@@ -8,6 +9,7 @@ namespace Penguin.Cms.Web.DependencyInjection
 {
     public class DependencyRegistrations : IRegisterDependencies
     {
+        TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings());
         public void RegisterDependencies(IServiceRegister serviceRegister)
         {
             if (serviceRegister is null)

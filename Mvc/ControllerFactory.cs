@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Loxifi;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Penguin.Cms.Web.Mvc.Exceptions;
 using Penguin.Reflection;
@@ -11,6 +12,8 @@ namespace Penguin.Cms.Web.Mvc
 {
     public class ControllerFactory : IControllerFactory
     {
+        static TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings());
+
         public ControllerFactory()
         {
         }

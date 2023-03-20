@@ -1,4 +1,5 @@
-﻿using Penguin.DependencyInjection.Abstractions.Enums;
+﻿using Loxifi;
+using Penguin.DependencyInjection.Abstractions.Enums;
 using Penguin.DependencyInjection.Abstractions.Interfaces;
 using Penguin.Messaging.Abstractions.Interfaces;
 using Penguin.Messaging.Core;
@@ -9,6 +10,8 @@ namespace Penguin.Cms.Web.DependencyInjection
 {
     public class MessageBusRegistration : IRegisterDependencies
     {
+        TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings());
+
         public void RegisterDependencies(IServiceRegister serviceRegister)
         {
             if (serviceRegister is null)

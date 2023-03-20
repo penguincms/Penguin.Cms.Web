@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Loxifi;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -41,6 +42,7 @@ namespace Penguin.Cms.Web.Mvc
         }
 
         public IConfiguration Configuration { get; }
+        TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings());
 
         public static bool PersistenceConfigured { get; set; }
 
