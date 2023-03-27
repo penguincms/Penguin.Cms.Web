@@ -42,8 +42,6 @@ namespace Penguin.Cms.Web.Mvc
         }
 
         public IConfiguration Configuration { get; }
-        TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings());
-
         public static bool PersistenceConfigured { get; set; }
 
         private static readonly object BootLock = new();
@@ -84,7 +82,7 @@ namespace Penguin.Cms.Web.Mvc
 
                 _ = services.AddSingleton<IFileProvider>((ServiceProvider) => new CompositeFileProvider(RCLStaticFiles.FileProvider, new RCLViews()));
 
-                _ = TypeFactory.GetTypeByFullName("Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions")
+                _ = TypeFactory.Default.GetTypeByFullName("Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions")
                            .GetMethods().Single(m => m.Name == "AddControllersWithViews" && m.GetParameters().Length == 1)
                            .Invoke(null, new object[] { services });
 
@@ -92,7 +90,7 @@ namespace Penguin.Cms.Web.Mvc
                     // add custom binder to beginning of collection
                     options.ModelBinderProviders.Insert(0, new FlagsEnumModelBinderProvider()));
 
-                Type runtimeCompilation = TypeFactory.GetTypeByFullName("Microsoft.Extensions.DependencyInjection.RazorRuntimeCompilationMvcBuilderExtensions");
+                Type runtimeCompilation = TypeFactory.Default.GetTypeByFullName("Microsoft.Extensions.DependencyInjection.RazorRuntimeCompilationMvcBuilderExtensions");
 
                 if (runtimeCompilation is null)
                 {
@@ -136,7 +134,7 @@ namespace Penguin.Cms.Web.Mvc
                 {
                     appBuilder.UseMiddleware<ServiceScope>();
 
-                    foreach (Type t in TypeFactory.GetAllImplementations(typeof(IPenguinMiddleware)))
+                    foreach (Type t in TypeFactory.Default.GetAllImplementations(typeof(IPenguinMiddleware)))
                     {
                         MethodInfo m = typeof(UseMiddlewareExtensions).GetMethods()
                                       .First(mi =>
@@ -158,7 +156,7 @@ namespace Penguin.Cms.Web.Mvc
 
                 DependencyEngine.Register((serviceProvider) => provideConnectionStrings);
 
-                foreach (Type t in TypeFactory.GetAllImplementations(typeof(IRouteConfig)))
+                foreach (Type t in TypeFactory.Default.GetAllImplementations(typeof(IRouteConfig)))
                 {
                     if (Activator.CreateInstance(t) is IRouteConfig r)
                     {

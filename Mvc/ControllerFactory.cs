@@ -12,8 +12,6 @@ namespace Penguin.Cms.Web.Mvc
 {
     public class ControllerFactory : IControllerFactory
     {
-        static TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings());
-
         public ControllerFactory()
         {
         }
@@ -24,7 +22,7 @@ namespace Penguin.Cms.Web.Mvc
 
             List<Type> MatchingControllers = new();
 
-            foreach (Type t in TypeFactory.GetDerivedTypes(typeof(Controller)))
+            foreach (Type t in TypeFactory.Default.GetDerivedTypes(typeof(Controller)))
             {
                 AreaAttribute? a = t.GetCustomAttribute<AreaAttribute>();
 
@@ -42,10 +40,10 @@ namespace Penguin.Cms.Web.Mvc
 
             foreach (Type t in MatchingControllers.ToList())
             {
-                MatchingControllers.AddRange(TypeFactory.GetDerivedTypes(t));
+                MatchingControllers.AddRange(TypeFactory.Default.GetDerivedTypes(t));
             }
 
-            Type toReturn = TypeFactory.GetMostDerivedType(MatchingControllers, typeof(Controller));
+            Type toReturn = TypeFactory.Default.GetMostDerivedType(MatchingControllers, typeof(Controller));
 
             return toReturn;
         }

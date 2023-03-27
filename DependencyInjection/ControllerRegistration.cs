@@ -9,7 +9,6 @@ namespace Penguin.Cms.Web.DependencyInjection
 {
     public class DependencyRegistrations : IRegisterDependencies
     {
-        TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings());
         public void RegisterDependencies(IServiceRegister serviceRegister)
         {
             if (serviceRegister is null)
@@ -17,7 +16,7 @@ namespace Penguin.Cms.Web.DependencyInjection
                 throw new ArgumentNullException(nameof(serviceRegister));
             }
 
-            foreach (Type controllerType in TypeFactory.GetDerivedTypes(typeof(Controller)))
+            foreach (Type controllerType in TypeFactory.Default.GetDerivedTypes(typeof(Controller)))
             {
                 serviceRegister.Register(controllerType, controllerType, ServiceLifetime.Scoped);
             }

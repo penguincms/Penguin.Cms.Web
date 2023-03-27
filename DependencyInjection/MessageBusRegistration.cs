@@ -10,8 +10,6 @@ namespace Penguin.Cms.Web.DependencyInjection
 {
     public class MessageBusRegistration : IRegisterDependencies
     {
-        TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings());
-
         public void RegisterDependencies(IServiceRegister serviceRegister)
         {
             if (serviceRegister is null)
@@ -21,7 +19,7 @@ namespace Penguin.Cms.Web.DependencyInjection
 
             serviceRegister.Register(typeof(MessageBus), typeof(MessageBus), ServiceLifetime.Transient);
 
-            foreach (Type t in TypeFactory.GetAllImplementations(typeof(IMessageHandler<>)))
+            foreach (Type t in TypeFactory.Default.GetAllImplementations(typeof(IMessageHandler<>)))
             {
                 serviceRegister.Register(t, t, ServiceLifetime.Scoped);
             }
