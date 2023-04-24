@@ -119,14 +119,8 @@ namespace Penguin.Cms.Web.Mvc
                 }
 
                 app.UseSession();
-                //app.UseHttpsRedirection();
 
                 app.UseStaticFiles();
-
-                //app.UseStaticFiles(new StaticFileOptions()
-                //{
-                //    ServeUnknownFileTypes = true
-                //});
 
                 app.UseCookiePolicy();
 

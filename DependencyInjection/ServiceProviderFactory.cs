@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Penguin.Cms.Web.Extensions;
 using Penguin.Cms.Web.Mvc;
@@ -29,11 +30,14 @@ namespace Penguin.Cms.Web.DependencyInjection
                 throw new ArgumentNullException(nameof(services));
             }
 
+            IServiceProvider defaultServiceProvider = services.BuildServiceProvider();
+
             DependencyEngine.Register<IServiceScopeFactory, PerRequestScopeFactory>();
             DependencyEngine.Register<IServiceProvider, DependencyEngine>(typeof(ScopedServiceProvider));
             DependencyEngine.Register<HttpContext, DefaultHttpContext>(typeof(ScopedServiceProvider));
             DependencyEngine.Register((IServiceProvider serviceProvider) => serviceProvider.GetService<HttpContext>().TryGetSession(), typeof(ScopedServiceProvider));
-            DependencyEngine.Register<IControllerFactory, ControllerFactory>(typeof(SingletonServiceProvider));
+
+            IActionSelector defaultActionSelector = defaultServiceProvider.GetService<IActionSelector>(); ;
 
             foreach (ServiceDescriptor descriptor in services)
             {
@@ -68,7 +72,11 @@ namespace Penguin.Cms.Web.DependencyInjection
                 }
             }
 
-            return new ContainerBuilder();
+            
+			DependencyEngine.Register<IActionSelector>((s) => new ActionSelector(defaultActionSelector), typeof(SingletonServiceProvider));
+			//DependencyEngine.Register<IControllerFactory, ControllerFactory>(typeof(SingletonServiceProvider));
+
+			return new ContainerBuilder();
         }
 
         /// <summary>

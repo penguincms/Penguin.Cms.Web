@@ -43,7 +43,7 @@ namespace Penguin.Cms.Web.Mvc
                 MatchingControllers.AddRange(TypeFactory.Default.GetDerivedTypes(t));
             }
 
-            Type toReturn = TypeFactory.Default.GetMostDerivedType(MatchingControllers, typeof(Controller));
+            Type toReturn = TypeFactory.Default.GetMostDerivedType(MatchingControllers.Distinct(), typeof(Controller));
 
             return toReturn;
         }
@@ -76,7 +76,7 @@ namespace Penguin.Cms.Web.Mvc
 
         public void ReleaseController(ControllerContext context, object controller)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
