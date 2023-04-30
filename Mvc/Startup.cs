@@ -46,6 +46,15 @@ namespace Penguin.Cms.Web.Mvc
 
         private static readonly object BootLock = new();
 
+        /// <summary>
+        /// Override this method to add client services
+        /// </summary>
+        /// <param name="services"></param>
+        public virtual void ConfigureAdditionalServices(IServiceCollection services)
+        {
+
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Pending>")]
         public void ConfigureServices(IServiceCollection services)
@@ -56,6 +65,8 @@ namespace Penguin.Cms.Web.Mvc
                 {
                     return;
                 }
+
+                ConfigureAdditionalServices(services);
 
                 _ = services.Configure<CookiePolicyOptions>(options =>
                 {

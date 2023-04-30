@@ -130,5 +130,11 @@
             <param name="context">The current HttpContext</param>
             <returns>A task for the middleware execution</returns>
         </member>
+        <member name="M:Penguin.Cms.Web.Mvc.Startup.ConfigureAdditionalServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Override this method to add client services
+            </summary>
+            <param name="services"></param>
+        </member>
     </members>
 </doc>
